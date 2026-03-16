@@ -120,27 +120,20 @@
   .shelf-count { font-family: 'Outfit', sans-serif; font-size: 12px; color: var(--muted); }
 
   .book-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 22px; }
+  .book-card { display: flex; flex-direction: column; gap: 10px; animation: fadeUp 0.3s ease forwards; opacity: 0; cursor: pointer; }
 
-  .book-card { display: flex; flex-direction: column; gap: 10px; animation: fadeUp 0.3s ease forwards; opacity: 0; }
-
-  .book-cover { width: 100%; aspect-ratio: 2/3; border-radius: 6px; overflow: hidden; background: var(--surface2); border: 1px solid var(--border); position: relative; box-shadow: 4px 5px 18px rgba(0,0,0,0.55); transition: transform 0.18s, box-shadow 0.18s; cursor: pointer; }
+  .book-cover { width: 100%; aspect-ratio: 2/3; border-radius: 6px; overflow: hidden; background: var(--surface2); border: 1px solid var(--border); position: relative; box-shadow: 4px 5px 18px rgba(0,0,0,0.55); transition: transform 0.18s, box-shadow 0.18s; }
   .book-card:hover .book-cover { transform: translateY(-3px); box-shadow: 4px 8px 24px rgba(0,0,0,0.65); }
   .book-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .book-cover .cover-fallback { flex-direction: column; gap: 8px; padding: 12px; text-align: center; font-size: 22px; }
   .cover-fallback-title { font-family: 'Outfit', sans-serif; font-size: 10px; font-weight: 700; color: var(--muted2); line-height: 1.3; }
   .book-age-badge { position: absolute; top: 7px; left: 7px; font-family: 'Outfit', sans-serif; font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 3px; letter-spacing: 0.05em; text-transform: uppercase; background: rgba(7,9,15,0.8); color: var(--muted2); }
   .book-new-badge { position: absolute; top: 7px; right: 7px; font-family: 'Outfit', sans-serif; font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 3px; background: var(--accent); color: var(--bg); }
+  .book-coming-badge { position: absolute; top: 7px; right: 7px; font-family: 'Outfit', sans-serif; font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 3px; background: var(--accent2); color: var(--bg); }
 
   .book-info { display: flex; flex-direction: column; gap: 3px; }
   .book-title { font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700; line-height: 1.3; color: var(--text); }
-  .book-author { font-size: 11px; color: var(--muted2); margin-bottom: 4px; }
-  .book-actions { display: flex; gap: 5px; flex-wrap: wrap; }
-  .book-btn-author { font-family: 'Outfit', sans-serif; font-size: 10px; font-weight: 600; color: var(--muted2); text-decoration: none; padding: 4px 8px; border: 1px solid var(--border); border-radius: 4px; transition: all 0.15s; white-space: nowrap; }
-  .book-btn-author:hover { color: var(--accent); border-color: var(--accent); }
-  .book-btn-find { font-family: 'Outfit', sans-serif; font-size: 10px; font-weight: 700; color: var(--accent); text-decoration: none; padding: 4px 8px; border: 1px solid rgba(126,200,240,0.35); border-radius: 4px; transition: all 0.15s; white-space: nowrap; }
-  .book-btn-find:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); }
-  .book-btn-more { font-family: 'Outfit', sans-serif; font-size: 10px; font-weight: 600; color: var(--muted); background: none; border: 1px solid var(--border); border-radius: 4px; padding: 4px 8px; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
-  .book-btn-more:hover { color: var(--text); border-color: var(--muted2); }
+  .book-author { font-size: 11px; color: var(--muted2); }
 
   /* Modal */
   .modal-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); align-items: center; justify-content: center; padding: 24px; }
@@ -150,8 +143,9 @@
   .modal-close { position: absolute; top: 16px; right: 16px; background: none; border: 1px solid var(--border); border-radius: 6px; color: var(--muted2); cursor: pointer; font-size: 16px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
   .modal-close:hover { border-color: var(--accent); color: var(--accent); }
   .modal-inner { display: flex; gap: 20px; }
-  .modal-cover { width: 90px; min-width: 90px; height: 130px; border-radius: 6px; overflow: hidden; background: var(--surface2); box-shadow: 3px 3px 12px rgba(0,0,0,0.6); flex-shrink: 0; }
+  .modal-cover { width: 90px; min-width: 90px; height: 130px; border-radius: 6px; overflow: hidden; background: var(--surface2); box-shadow: 3px 3px 12px rgba(0,0,0,0.6); flex-shrink: 0; position: relative; }
   .modal-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .modal-cover .cover-fallback { font-size: 32px; }
   .modal-info { flex: 1; min-width: 0; }
   .modal-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
   .modal-title { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 800; line-height: 1.25; color: var(--text); margin-bottom: 4px; }
@@ -188,7 +182,10 @@
   <div class="modal">
     <button class="modal-close" onclick="closeModal()">&#10005;</button>
     <div class="modal-inner">
-      <div class="modal-cover"><img id="modal-img" src="" alt=""><div class="cover-fallback" id="modal-fallback" style="display:none">&#128218;</div></div>
+      <div class="modal-cover">
+        <img id="modal-img" src="" alt="" style="display:none">
+        <div class="cover-fallback" id="modal-fallback">&#128218;</div>
+      </div>
       <div class="modal-info">
         <div class="modal-badges" id="modal-badges"></div>
         <div class="modal-title" id="modal-title"></div>
@@ -247,675 +244,88 @@
       <div class="section-title">Recommended reads</div>
       <div class="section-subtitle">Start here</div>
     </div>
-    <div class="featured-grid">
-
-      <div class="feat-card new-book" style="animation-delay:0.05s">
-        <div class="feat-cover">
-          <img id="fc-nightfaring" src="" alt="Nightfaring cover">
-          <div class="cover-fallback">&#128218;</div>
-        </div>
-        <div class="feat-info">
-          <div class="feat-badges"><span class="badge badge-new">New 2026</span><span class="badge badge-age">Adults</span></div>
-          <div class="feat-title">Nightfaring: In Search of the Disappearing Darkness</div>
-          <div class="feat-author">Megan Eaves-Egenes</div>
-          <div class="feat-desc">A profound travel memoir following a dark sky advocate from New Zealand to Uzbekistan, Italy to the Himalaya -- exploring how humans have depended on, feared, and mythologized darkness throughout history. Editor of DarkSky International's Nightscape.</div>
-          <div class="feat-actions">
-            <a href="https://meganeaves.com/" class="btn-author" target="_blank" rel="noopener">Author's site &#8599;</a>
-            <a href="https://bookshop.org/p/books/nightfaring-in-search-of-the-disappearing-darkness-megan-eaves-egenes/5978221c68baf133" class="btn-find" target="_blank" rel="noopener">Find this book &#8599;</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="feat-card" style="animation-delay:0.1s">
-        <div class="feat-cover">
-          <img id="fc-endofnight" src="" alt="The End of Night cover">
-          <div class="cover-fallback">&#127769;</div>
-        </div>
-        <div class="feat-info">
-          <div class="feat-badges"><span class="badge badge-age">Adults</span></div>
-          <div class="feat-title">The End of Night</div>
-          <div class="feat-author">Paul Bogard</div>
-          <div class="feat-desc">The definitive exploration of natural darkness and what we lose when artificial light takes over our nights -- weaving together science, history, and personal journey across five continents. A Nautilus Silver Award winner, called the light pollution movement's Silent Spring.</div>
-          <div class="feat-actions">
-            <a href="http://www.paul-bogard.com/books/the-end-of-night-paul-bogard" class="btn-author" target="_blank" rel="noopener">Author's site &#8599;</a>
-            <a href="https://bookshop.org/p/books/the-end-of-night-searching-for-natural-darkness-in-an-age-of-artificial-light-paul-bogard/16618824" class="btn-find" target="_blank" rel="noopener">Find this book &#8599;</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="feat-card new-book" style="animation-delay:0.15s">
-        <div class="feat-cover">
-          <img id="fc-innerclock" src="" alt="The Inner Clock cover">
-          <div class="cover-fallback">&#9200;</div>
-        </div>
-        <div class="feat-info">
-          <div class="feat-badges"><span class="badge badge-new">2024</span><span class="badge badge-age">Adults</span></div>
-          <div class="feat-title">The Inner Clock: Living in Sync with Our Circadian Rhythms</div>
-          <div class="feat-author">Lynne Peeples</div>
-          <div class="feat-desc">Groundbreaking science journalism on how artificial light is disrupting our biology. Peeples spent 10 days in a Cold War bunker without sunlight or clocks to understand her own circadian rhythm -- and came back with a book that reframes how you see every night.</div>
-          <div class="feat-actions">
-            <a href="https://lynnepeeples.com/the-inner-clock/" class="btn-author" target="_blank" rel="noopener">Author's site &#8599;</a>
-            <a href="https://bookshop.org/p/books/the-inner-clock-living-in-sync-with-our-circadian-rhythms-lynne-peeples/21055207" class="btn-find" target="_blank" rel="noopener">Find this book &#8599;</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="feat-card" style="animation-delay:0.2s">
-        <div class="feat-cover">
-          <img id="fc-darkness" src="" alt="The Darkness Manifesto cover">
-          <div class="cover-fallback">&#127774;</div>
-        </div>
-        <div class="feat-info">
-          <div class="feat-badges"><span class="badge badge-age">Adults</span></div>
-          <div class="feat-title">The Darkness Manifesto</div>
-          <div class="feat-author">Johan Eklöf</div>
-          <div class="feat-desc">A passionate, scientifically grounded case for protecting darkness as an essential environmental resource, from a Swedish bat scientist. Winner of the Penn Libraries Book Prize in Sustainability. Named a Best Book of the Year by Scientific American and the New York Times.</div>
-          <div class="feat-actions">
-            <a href="https://www.simonandschuster.com/books/The-Darkness-Manifesto/Johan-Eklof/9781668000908" class="btn-author" target="_blank" rel="noopener">Publisher's page &#8599;</a>
-            <a href="https://bookshop.org/p/books/the-darkness-manifesto-on-light-pollution-night-ecology-and-the-ancient-rhythms-that-sustain-life-johan-ekl-f/c4bb587368c19f6e" class="btn-find" target="_blank" rel="noopener">Find this book &#8599;</a>
-          </div>
-        </div>
-      </div>
-
-    </div>
+    <div class="featured-grid" id="featured-grid"></div>
   </div>
 
   <!-- ADVOCACY -->
   <div class="shelf" id="advocacy">
     <div class="shelf-head">
       <div class="shelf-title"><span>&#128227;</span>Advocacy &amp; Policy</div>
-      <div class="shelf-count">6 books</div>
+      <div class="shelf-count" id="count-advocacy"></div>
     </div>
-    <div class="book-grid">
-
-      <div class="book-card" style="animation-delay:0.05s">
-        <div class="book-cover" onclick="openModal('All Through the Night','Dani Robertson','Adults','Advocacy','A celebration of the night and an urgent case for protecting it. Dani Robertson is the Dark Sky Officer for Snowdonia National Park and recipient of the IDA Dark Sky Defender Award 2022. Written from Wales, this book weaves personal stories, science, and folklore into a compelling argument for why darkness matters -- to our health, our wildlife, and our sense of place.','https://bookshop.org/p/books/all-through-the-night-why-our-lives-depend-on-dark-skies-dani-robertson/18991898','https://harpercollins.co.uk/blogs/authors/dani-robertson','Publisher','9780008586720',this)">
-          <img src="" alt="All Through the Night" data-isbn="9780008586720">
-          <div class="cover-fallback"><div>&#127773;</div><div class="cover-fallback-title">All Through the Night</div></div>
-        </div>
-        <div class="book-info">
-          <div class="book-title">All Through the Night</div>
-          <div class="book-author">Dani Robertson</div>
-          <div class="book-actions">
-            <a href="https://harpercollins.co.uk/blogs/authors/dani-robertson" class="book-btn-author" target="_blank" rel="noopener">Publisher &#8599;</a>
-            <a href="https://bookshop.org/p/books/all-through-the-night-why-our-lives-depend-on-dark-skies-dani-robertson/18991898" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
-            <button class="book-btn-more" onclick="openModal('All Through the Night','Dani Robertson','Adults','Advocacy','A celebration of the night and an urgent case for protecting it. Dani Robertson is the Dark Sky Officer for Snowdonia National Park and recipient of the IDA Dark Sky Defender Award 2022. Written from Wales, this book weaves personal stories, science, and folklore into a compelling argument for why darkness matters -- to our health, our wildlife, and our sense of place.','https://bookshop.org/p/books/all-through-the-night-why-our-lives-depend-on-dark-skies-dani-robertson/18991898','https://harpercollins.co.uk/blogs/authors/dani-robertson','Publisher','9780008586720',null)">More</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card" style="animation-delay:0.08s">
-        <div class="book-cover" onclick="openModal('Fighting Light Pollution','IDA / Bob Mizon','Adults','Advocacy','The essential practical manual for reducing light pollution -- covering lighting design, policy guidance, and community action strategies. Published by the International Dark-Sky Association, this is the go-to reference for advocates working with municipalities, planners, and local governments.','https://bookshop.org/p/books/fighting-light-pollution-smart-lighting-solutions-for-individuals-and-communities-international-dark-sky-association/7370694','','','',this)">
-          <div class="cover-fallback"><div>&#128227;</div><div class="cover-fallback-title">Fighting Light Pollution</div></div>
-        </div>
-        <div class="book-info">
-          <div class="book-title">Fighting Light Pollution</div>
-          <div class="book-author">IDA / Bob Mizon</div>
-          <div class="book-actions">
-            <a href="https://bookshop.org/p/books/fighting-light-pollution-smart-lighting-solutions-for-individuals-and-communities-international-dark-sky-association/7370694" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
-            <button class="book-btn-more" onclick="openModal('Fighting Light Pollution','IDA / Bob Mizon','Adults','Advocacy','The essential practical manual for reducing light pollution -- covering lighting design, policy guidance, and community action strategies. Published by the International Dark-Sky Association, this is the go-to reference for advocates working with municipalities, planners, and local governments.','https://bookshop.org/p/books/fighting-light-pollution-smart-lighting-solutions-for-individuals-and-communities-international-dark-sky-association/7370694','','','',null)">More</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card" style="animation-delay:0.11s">
-        <div class="book-cover" onclick="openModal('Light Pollution: Responses and Remedies','Bob Mizon','Adults','Advocacy','Advocacy strategies, community success stories, and practical lighting guidance from one of the UK\'s leading dark sky advocates. Now in its second edition, this is a comprehensive guide to the science behind light pollution and what communities can do about it.','https://bookshop.org/p/books/light-pollution-responses-and-remedies-bob-mizon/12066745','','','9781461438212',this)">
-          <img src="" alt="Light Pollution Responses and Remedies" data-isbn="9781461438212">
-          <div class="cover-fallback"><div>&#128204;</div><div class="cover-fallback-title">Responses &amp; Remedies</div></div>
-        </div>
-        <div class="book-info">
-          <div class="book-title">Light Pollution: Responses and Remedies</div>
-          <div class="book-author">Bob Mizon</div>
-          <div class="book-actions">
-            <a href="https://bookshop.org/p/books/light-pollution-responses-and-remedies-bob-mizon/12066745" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
-            <button class="book-btn-more" onclick="openModal('Light Pollution: Responses and Remedies','Bob Mizon','Adults','Advocacy','Advocacy strategies, community success stories, and practical lighting guidance from one of the UK\'s leading dark sky advocates. Now in its second edition, this is a comprehensive guide to the science behind light pollution and what communities can do about it.','https://bookshop.org/p/books/light-pollution-responses-and-remedies-bob-mizon/12066745','','','9781461438212',null)">More</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card" style="animation-delay:0.14s">
-        <div class="book-cover" onclick="openModal('Let There Be Night','Ed. Paul Bogard','Adults','Advocacy','A landmark anthology of essays by scientists, poets, and writers making the case for darkness. Contributors include luminaries across ecology, philosophy, and literature. One of the most compelling collections on light pollution ever assembled, and the book that helped launch the modern dark sky movement.','https://bookshop.org/p/books/let-there-be-night-testimony-on-behalf-of-the-dark-paul-bogard/7513249','http://www.paul-bogard.com/books-and-writings','Author','',this)">
-          <div class="cover-fallback"><div>&#11088;</div><div class="cover-fallback-title">Let There Be Night</div></div>
-        </div>
-        <div class="book-info">
-          <div class="book-title">Let There Be Night</div>
-          <div class="book-author">Ed. Paul Bogard</div>
-          <div class="book-actions">
-            <a href="http://www.paul-bogard.com/books-and-writings" class="book-btn-author" target="_blank" rel="noopener">Author &#8599;</a>
-            <a href="https://bookshop.org/p/books/let-there-be-night-testimony-on-behalf-of-the-dark-paul-bogard/7513249" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
-            <button class="book-btn-more" onclick="openModal('Let There Be Night','Ed. Paul Bogard','Adults','Advocacy','A landmark anthology of essays by scientists, poets, and writers making the case for darkness. Contributors include luminaries across ecology, philosophy, and literature. One of the most compelling collections on light pollution ever assembled, and the book that helped launch the modern dark sky movement.','https://bookshop.org/p/books/let-there-be-night-testimony-on-behalf-of-the-dark-paul-bogard/7513249','http://www.paul-bogard.com/books-and-writings','Author','',null)">More</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card" style="animation-delay:0.17s">
-        <div class="book-cover" onclick="openModal('Under the Stars: A Journey Into Light','Matt Gaw','Adults','Nature Writing &amp; Advocacy','A lyrical exploration of what we lose when artificial light fills our nights -- told through a series of nocturnal walks through moonlit Suffolk, the Scottish highlands, Dartmoor, and the Isle of Coll. Gaw is a naturalist and journalist who works with Suffolk Wildlife Trust. Recommended by DarkSky International. Beautiful entry point for readers who come to this issue through nature rather than science.','https://bookshop.org/p/books/under-the-stars-a-journey-into-light-matt-gaw/19876543','','','9781783965823',this)">
-          <img src="" alt="Under the Stars" data-isbn="9781783965823">
-          <div class="cover-fallback"><div>&#127775;</div><div class="cover-fallback-title">Under the Stars</div></div>
-        </div>
-        <div class="book-info">
-          <div class="book-title">Under the Stars</div>
-          <div class="book-author">Matt Gaw</div>
-          <div class="book-actions">
-            <a href="https://bookshop.org/p/books/under-the-stars-a-journey-into-light-matt-gaw/19876543" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
-            <button class="book-btn-more" onclick="openModal('Under the Stars: A Journey Into Light','Matt Gaw','Adults','Nature Writing &amp; Advocacy','A lyrical exploration of what we lose when artificial light fills our nights -- told through a series of nocturnal walks through moonlit Suffolk, the Scottish highlands, Dartmoor, and the Isle of Coll. Gaw is a naturalist and journalist who works with Suffolk Wildlife Trust. Recommended by DarkSky International. Beautiful entry point for readers who come to this issue through nature rather than science.','https://bookshop.org/p/books/under-the-stars-a-journey-into-light-matt-gaw/19876543','','','9781783965823',null)">More</button>
-          </div>
-        </div>
-      </div>
-
-    </div>
+    <div class="book-grid" id="grid-advocacy"></div>
   </div>
 
-  <!-- SCIENCE & ECOLOGY -->
+  <!-- SCIENCE -->
   <div class="shelf" id="science">
     <div class="shelf-head">
       <div class="shelf-title"><span>&#127981;</span>Science &amp; Ecology</div>
-      <div class="shelf-count">3 books</div>
+      <div class="shelf-count" id="count-science"></div>
     </div>
-    <div class="book-grid">
-
-      <div class="book-card" style="animation-delay:0.05s">
-        <div class="book-cover" onclick="openModal('Ecological Consequences of Artificial Night Lighting','Catherine Rich &amp; Travis Longcore','Adults','Science','The scientific anthology that put ALAN ecology on the map. A comprehensive look at how artificial light at night disrupts wildlife across all taxonomic groups -- insects, birds, mammals, and marine life. Essential reading for anyone doing science-based advocacy.','https://bookshop.org/p/books/ecological-consequences-of-artificial-night-lighting-catherine-rich/7370695','','','9781559631297',this)">
-          <img src="" alt="Ecological Consequences of ALAN" data-isbn="9781559631297">
-          <div class="cover-fallback"><div>&#127748;</div><div class="cover-fallback-title">Ecological Consequences of ALAN</div></div>
-        </div>
-        <div class="book-info">
-          <div class="book-title">Ecological Consequences of Artificial Night Lighting</div>
-          <div class="book-author">Rich &amp; Longcore</div>
-          <div class="book-actions">
-            <a href="https://bookshop.org/p/books/ecological-consequences-of-artificial-night-lighting-catherine-rich/7370695" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
-            <button class="book-btn-more" onclick="openModal('Ecological Consequences of Artificial Night Lighting','Catherine Rich &amp; Travis Longcore','Adults','Science','The scientific anthology that put ALAN ecology on the map. A comprehensive look at how artificial light at night disrupts wildlife across all taxonomic groups -- insects, birds, mammals, and marine life. Essential reading for anyone doing science-based advocacy.','https://bookshop.org/p/books/ecological-consequences-of-artificial-night-lighting-catherine-rich/7370695','','','9781559631297',null)">More</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card" style="animation-delay:0.08s">
-        <div class="book-cover" onclick="openModal('Dark Matters: Nature\'s Reaction to Light Pollution','Joan Galat','Teens (10-18)','Science','An engaging middle-grade look at how light pollution affects wildlife, with activities and practical actions for young readers. Clear, accessible, and science-based -- a great bridge book for older kids getting interested in dark sky advocacy.','https://bookshop.org/p/books/dark-matters-natures-reaction-to-light-pollution-joan-galat/9234567','','','',this)">
-          <div class="cover-fallback"><div>&#127760;</div><div class="cover-fallback-title">Dark Matters</div></div>
-          <div class="book-new-badge">Ages 10+</div>
-        </div>
-        <div class="book-info">
-          <div class="book-title">Dark Matters</div>
-          <div class="book-author">Joan Galat</div>
-          <div class="book-actions">
-            <a href="https://bookshop.org/p/books/dark-matters-natures-reaction-to-light-pollution-joan-galat/9234567" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
-            <button class="book-btn-more" onclick="openModal('Dark Matters: Nature\'s Reaction to Light Pollution','Joan Galat','Teens (10-18)','Science','An engaging middle-grade look at how light pollution affects wildlife, with activities and practical actions for young readers. Clear, accessible, and science-based -- a great bridge book for older kids getting interested in dark sky advocacy.','https://bookshop.org/p/books/dark-matters-natures-reaction-to-light-pollution-joan-galat/9234567','','','',null)">More</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card" style="animation-delay:0.11s">
-        <div class="book-cover" onclick="openModal('Night Magic','Leigh Ann Henion','Adults','Science','DarkSky International\'s first book club pick. A luminous exploration of nocturnal wonders -- fireflies, bioluminescent mushrooms, migratory salamanders, moth festivals. Henion stays close to home in Appalachia to show that dazzling darkness exists in our own backyards. NYT bestseller.','https://bookshop.org/p/books/night-magic-adventures-among-glowworms-moon-gardens-and-other-marvels-of-the-dark-leigh-ann-henion/21118246','https://leighannhenion.com/books','Author','9781643752600',this)">
-          <img src="" alt="Night Magic" data-isbn="9781643752600">
-          <div class="cover-fallback"><div>&#10024;</div><div class="cover-fallback-title">Night Magic</div></div>
-          <div class="book-new-badge">2024</div>
-        </div>
-        <div class="book-info">
-          <div class="book-title">Night Magic</div>
-          <div class="book-author">Leigh Ann Henion</div>
-          <div class="book-actions">
-            <a href="https://leighannhenion.com/books" class="book-btn-author" target="_blank" rel="noopener">Author &#8599;</a>
-            <a href="https://bookshop.org/p/books/night-magic-adventures-among-glowworms-moon-gardens-and-other-marvels-of-the-dark-leigh-ann-henion/21118246" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
-            <button class="book-btn-more" onclick="openModal('Night Magic','Leigh Ann Henion','Adults','Science','DarkSky International\'s first book club pick. A luminous exploration of nocturnal wonders -- fireflies, bioluminescent mushrooms, migratory salamanders, moth festivals. Henion stays close to home in Appalachia to show that dazzling darkness exists in our own backyards. NYT bestseller.','https://bookshop.org/p/books/night-magic-adventures-among-glowworms-moon-gardens-and-other-marvels-of-the-dark-leigh-ann-henion/21118246','https://leighannhenion.com/books','Author','9781643752600',null)">More</button>
-          </div>
-        </div>
-      </div>
-
-    </div>
+    <div class="book-grid" id="grid-science"></div>
   </div>
 
   <!-- NATURE WRITING -->
   <div class="shelf" id="nature">
     <div class="shelf-head">
       <div class="shelf-title"><span>&#127807;</span>Nature Writing</div>
-      <div class="shelf-count">3 books</div>
+      <div class="shelf-count" id="count-nature"></div>
     </div>
-    <div class="book-grid">
-
-      <div class="book-card" style="animation-delay:0.05s">
-        <div class="book-cover" onclick="openModal('Nightfaring: In Search of the Disappearing Darkness','Megan Eaves-Egenes','Adults','Nature Writing','A profound travel memoir following a dark sky advocate from New Zealand to Uzbekistan, Italy to the Himalaya. Eaves-Egenes is the editor of DarkSky International\'s Nightscape magazine and founder of Dark Sky London. Blending travel, myth, history, and self-discovery, Nightfaring is both personal journey and environmental call to arms.','https://bookshop.org/p/books/nightfaring-in-search-of-the-disappearing-darkness-megan-eaves-egenes/5978221c68baf133','https://meganeaves.com/','Author','9780306835339',this)">
-          <img src="" alt="Nightfaring" data-isbn="9780306835339">
-          <div class="cover-fallback"><div>&#128218;</div><div class="cover-fallback-title">Nightfaring</div></div>
-          <div class="book-new-badge">2026</div>
-        </div>
-        <div class="book-info">
-          <div class="book-title">Nightfaring</div>
-          <div class="book-author">Megan Eaves-Egenes</div>
-          <div class="book-actions">
-            <a href="https://meganeaves.com/" class="book-btn-author" target="_blank" rel="noopener">Author &#8599;</a>
-            <a href="https://bookshop.org/p/books/nightfaring-in-search-of-the-disappearing-darkness-megan-eaves-egenes/5978221c68baf133" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
-            <button class="book-btn-more" onclick="openModal('Nightfaring: In Search of the Disappearing Darkness','Megan Eaves-Egenes','Adults','Nature Writing','A profound travel memoir following a dark sky advocate from New Zealand to Uzbekistan, Italy to the Himalaya. Eaves-Egenes is the editor of DarkSky International\'s Nightscape magazine and founder of Dark Sky London. Blending travel, myth, history, and self-discovery, Nightfaring is both personal journey and environmental call to arms.','https://bookshop.org/p/books/nightfaring-in-search-of-the-disappearing-darkness-megan-eaves-egenes/5978221c68baf133','https://meganeaves.com/','Author','9780306835339',null)">More</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card" style="animation-delay:0.08s">
-        <div class="book-cover" onclick="openModal('To Know a Starry Night','Paul Bogard &amp; Beau Rogers','Teens+','Nature Writing','A photo-rich exploration of starry skies blending photography and essays on the wonder and importance of the natural night. Bogard is Minnesota\'s own voice for dark skies -- he teaches at Hamline University in St. Paul and has spent his career making the case for darkness.','https://bookshop.org/p/books/to-know-a-starry-night-paul-bogard/17264872','http://www.paul-bogard.com/books-and-writings','Author','9781647790127',this)">
-          <img src="" alt="To Know a Starry Night" data-isbn="9781647790127">
-          <div class="cover-fallback"><div>&#127776;</div><div class="cover-fallback-title">To Know a Starry Night</div></div>
-        </div>
-        <div class="book-info">
-          <div class="book-title">To Know a Starry Night</div>
-          <div class="book-author">Paul Bogard &amp; Beau Rogers</div>
-          <div class="book-actions">
-            <a href="http://www.paul-bogard.com/books-and-writings" class="book-btn-author" target="_blank" rel="noopener">Author &#8599;</a>
-            <a href="https://bookshop.org/p/books/to-know-a-starry-night-paul-bogard/17264872" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
-            <button class="book-btn-more" onclick="openModal('To Know a Starry Night','Paul Bogard &amp; Beau Rogers','Teens+','Nature Writing','A photo-rich exploration of starry skies blending photography and essays on the wonder and importance of the natural night. Bogard is Minnesota\'s own voice for dark skies -- he teaches at Hamline University in St. Paul and has spent his career making the case for darkness.','https://bookshop.org/p/books/to-know-a-starry-night-paul-bogard/17264872','http://www.paul-bogard.com/books-and-writings','Author','9781647790127',null)">More</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card" style="animation-delay:0.11s">
-        <div class="book-cover" onclick="openModal('Under the Stars: A Journey Into Light','Matt Gaw','Adults','Nature Writing','A lyrical exploration of what we lose when artificial light fills our nights -- told through nocturnal walks through moonlit Suffolk, the Scottish highlands, Dartmoor, and the Isle of Coll. Gaw is a naturalist and journalist with Suffolk Wildlife Trust. Recommended by DarkSky International. A beautiful entry point for readers who come to this issue through nature rather than science.','https://bookshop.org/p/books/under-the-stars-a-journey-into-light-matt-gaw/19876543','','','9781783965823',this)">
-          <img src="" alt="Under the Stars" data-isbn="9781783965823">
-          <div class="cover-fallback"><div>&#127775;</div><div class="cover-fallback-title">Under the Stars</div></div>
-        </div>
-        <div class="book-info">
-          <div class="book-title">Under the Stars</div>
-          <div class="book-author">Matt Gaw</div>
-          <div class="book-actions">
-            <a href="https://bookshop.org/p/books/under-the-stars-a-journey-into-light-matt-gaw/19876543" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
-            <button class="book-btn-more" onclick="openModal('Under the Stars: A Journey Into Light','Matt Gaw','Adults','Nature Writing','A lyrical exploration of what we lose when artificial light fills our nights -- told through nocturnal walks through moonlit Suffolk, the Scottish highlands, Dartmoor, and the Isle of Coll. Gaw is a naturalist and journalist with Suffolk Wildlife Trust. Recommended by DarkSky International. A beautiful entry point for readers who come to this issue through nature rather than science.','https://bookshop.org/p/books/under-the-stars-a-journey-into-light-matt-gaw/19876543','','','9781783965823',null)">More</button>
-          </div>
-        </div>
-      </div>
-
-    </div>
+    <div class="book-grid" id="grid-nature"></div>
   </div>
 
   <!-- HEALTH -->
   <div class="shelf" id="health">
     <div class="shelf-head">
       <div class="shelf-title"><span>&#9890;</span>Health &amp; Circadian</div>
-      <div class="shelf-count">1 book</div>
+      <div class="shelf-count" id="count-health"></div>
     </div>
-    <div class="book-grid">
-
-      <div class="book-card" style="animation-delay:0.05s">
-        <div class="book-cover" onclick="openModal('The Inner Clock: Living in Sync with Our Circadian Rhythms','Lynne Peeples','Adults','Health','Groundbreaking science journalism on how artificial light is disrupting our biology. Peeples spent 10 days in a Cold War bunker to understand her own circadian rhythm. Blurbed by Daniel Pink, James Nestor, and Mary Roach. A Wall Street Journal Best Science Book. Deeply connected to the light pollution issue through the lens of public health.','https://bookshop.org/p/books/the-inner-clock-living-in-sync-with-our-circadian-rhythms-lynne-peeples/21055207','https://lynnepeeples.com/the-inner-clock/','Author','9780593538906',this)">
-          <img src="" alt="The Inner Clock" data-isbn="9780593538906">
-          <div class="cover-fallback"><div>&#9200;</div><div class="cover-fallback-title">The Inner Clock</div></div>
-          <div class="book-new-badge">2024</div>
-        </div>
-        <div class="book-info">
-          <div class="book-title">The Inner Clock</div>
-          <div class="book-author">Lynne Peeples</div>
-          <div class="book-actions">
-            <a href="https://lynnepeeples.com/the-inner-clock/" class="book-btn-author" target="_blank" rel="noopener">Author &#8599;</a>
-            <a href="https://bookshop.org/p/books/the-inner-clock-living-in-sync-with-our-circadian-rhythms-lynne-peeples/21055207" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
-            <button class="book-btn-more" onclick="openModal('The Inner Clock: Living in Sync with Our Circadian Rhythms','Lynne Peeples','Adults','Health','Groundbreaking science journalism on how artificial light is disrupting our biology. Peeples spent 10 days in a Cold War bunker to understand her own circadian rhythm. Blurbed by Daniel Pink, James Nestor, and Mary Roach. A Wall Street Journal Best Science Book. Deeply connected to the light pollution issue through the lens of public health.','https://bookshop.org/p/books/the-inner-clock-living-in-sync-with-our-circadian-rhythms-lynne-peeples/21055207','https://lynnepeeples.com/the-inner-clock/','Author','9780593538906',null)">More</button>
-          </div>
-        </div>
-      </div>
-
-    </div>
+    <div class="book-grid" id="grid-health"></div>
   </div>
 
   <!-- TRAVEL -->
   <div class="shelf" id="travel">
     <div class="shelf-head">
       <div class="shelf-title"><span>&#127758;</span>Travel &amp; Astrotourism</div>
-      <div class="shelf-count">3 books</div>
+      <div class="shelf-count" id="count-travel"></div>
     </div>
-    <div class="book-grid">
-
-      <div class="book-card" style="animation-delay:0.05s">
-        <div class="book-cover" onclick="openModal('Nightfaring','Megan Eaves-Egenes','Adults','Travel','Also shelved under Nature Writing. A travel memoir that moves through a dozen countries in search of vanishing darkness -- from Uzbek observatories to Maori star compasses to Irish banshee traditions. Equal parts travelogue, environmental memoir, and dark sky advocacy.','https://bookshop.org/p/books/nightfaring-in-search-of-the-disappearing-darkness-megan-eaves-egenes/5978221c68baf133','https://meganeaves.com/','Author','9780306835339',this)">
-          <img src="" alt="Nightfaring" data-isbn="9780306835339">
-          <div class="cover-fallback"><div>&#128218;</div><div class="cover-fallback-title">Nightfaring</div></div>
-          <div class="book-new-badge">2026</div>
-        </div>
-        <div class="book-info">
-          <div class="book-title">Nightfaring</div>
-          <div class="book-author">Megan Eaves-Egenes</div>
-          <div class="book-actions">
-            <a href="https://meganeaves.com/" class="book-btn-author" target="_blank" rel="noopener">Author &#8599;</a>
-            <a href="https://bookshop.org/p/books/nightfaring-in-search-of-the-disappearing-darkness-megan-eaves-egenes/5978221c68baf133" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card" style="animation-delay:0.08s">
-        <div class="book-cover" onclick="openModal('Astrotourism','Michael Marlin','Adults','Travel','A comprehensive guide to dark-sky-focused travel -- where to go, what to see, and how the dark sky movement is transforming tourism globally. Covers International Dark Sky Parks, eclipse chasing, aurora viewing, and the growing community of people who plan trips around the night sky.','https://bookshop.org/p/books/astrotourism-star-gazers-eclipse-chasers-and-the-dark-sky-movement-michael-marlin/17612345','','','9781637420669',this)">
-          <img src="" alt="Astrotourism" data-isbn="9781637420669">
-          <div class="cover-fallback"><div>&#127756;</div><div class="cover-fallback-title">Astrotourism</div></div>
-        </div>
-        <div class="book-info">
-          <div class="book-title">Astrotourism</div>
-          <div class="book-author">Michael Marlin</div>
-          <div class="book-actions">
-            <a href="https://bookshop.org/p/books/astrotourism-star-gazers-eclipse-chasers-and-the-dark-sky-movement-michael-marlin/17612345" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
-            <button class="book-btn-more" onclick="openModal('Astrotourism','Michael Marlin','Adults','Travel','A comprehensive guide to dark-sky-focused travel -- where to go, what to see, and how the dark sky movement is transforming tourism globally. Covers International Dark Sky Parks, eclipse chasing, aurora viewing, and the growing community of people who plan trips around the night sky.','https://bookshop.org/p/books/astrotourism-star-gazers-eclipse-chasers-and-the-dark-sky-movement-michael-marlin/17612345','','','9781637420669',null)">More</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card" style="animation-delay:0.11s">
-        <div class="book-cover" onclick="openModal('Dark Skies: A Practical Guide to Astrotourism','Valerie Stimac','Adults','Travel','Lonely Planet\'s guide to the world\'s best dark sky destinations, with practical tips for stargazing travel on every continent. Covers International Dark Sky Parks, reserves, and sanctuaries -- a solid starting point for anyone planning a dark sky trip.','https://bookshop.org/p/books/dark-skies-a-practical-guide-to-astrotourism-valerie-stimac/12844444','','','9781788686198',this)">
-          <img src="" alt="Dark Skies Lonely Planet" data-isbn="9781788686198">
-          <div class="cover-fallback"><div>&#127752;</div><div class="cover-fallback-title">Dark Skies: A Guide</div></div>
-        </div>
-        <div class="book-info">
-          <div class="book-title">Dark Skies: A Practical Guide</div>
-          <div class="book-author">Valerie Stimac</div>
-          <div class="book-actions">
-            <a href="https://bookshop.org/p/books/dark-skies-a-practical-guide-to-astrotourism-valerie-stimac/12844444" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
-            <button class="book-btn-more" onclick="openModal('Dark Skies: A Practical Guide to Astrotourism','Valerie Stimac','Adults','Travel','Lonely Planet\'s guide to the world\'s best dark sky destinations, with practical tips for stargazing travel on every continent. Covers International Dark Sky Parks, reserves, and sanctuaries -- a solid starting point for anyone planning a dark sky trip.','https://bookshop.org/p/books/dark-skies-a-practical-guide-to-astrotourism-valerie-stimac/12844444','','','9781788686198',null)">More</button>
-          </div>
-        </div>
-      </div>
-
-    </div>
+    <div class="book-grid" id="grid-travel"></div>
   </div>
 
   <!-- PHOTOGRAPHY -->
   <div class="shelf" id="photo">
     <div class="shelf-head">
       <div class="shelf-title"><span>&#128247;</span>Photography</div>
-      <div class="shelf-count">4 books</div>
+      <div class="shelf-count" id="count-photo"></div>
     </div>
-    <div class="book-grid">
-
-      <div class="book-card" style="animation-delay:0.05s">
-        <div class="book-cover" onclick="openModal('SKYGLOW','Harun Mehmedovic &amp; Gavin Heffernan','All Ages','Photography','A stunning full-color astrophotography book produced in collaboration with IDA, exploring the most light-polluted cities and pristine dark sky preserves of North America. Over 2,000 copies sold. Comes with a Blu-Ray of timelapse videos. Order directly from the creators.','https://skyglowproject.com/products','https://skyglowproject.com','Author\'s store','9780692625804',this)">
-          <img src="" alt="SKYGLOW" data-isbn="9780692625804">
-          <div class="cover-fallback"><div>&#127756;</div><div class="cover-fallback-title">SKYGLOW</div></div>
-        </div>
-        <div class="book-info">
-          <div class="book-title">SKYGLOW</div>
-          <div class="book-author">Mehmedovic &amp; Heffernan</div>
-          <div class="book-actions">
-            <a href="https://skyglowproject.com/products" class="book-btn-author" target="_blank" rel="noopener">Order direct &#8599;</a>
-            <button class="book-btn-more" onclick="openModal('SKYGLOW','Harun Mehmedovic &amp; Gavin Heffernan','All Ages','Photography','A stunning full-color astrophotography book produced in collaboration with IDA, exploring the most light-polluted cities and pristine dark sky preserves of North America. Over 2,000 copies sold. Comes with a Blu-Ray of timelapse videos. Order directly from the creators.','https://skyglowproject.com/products','https://skyglowproject.com','Author\'s store','9780692625804',null)">More</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card" style="animation-delay:0.08s">
-        <div class="book-cover" onclick="openModal('Night on Earth','Art Wolfe','All Ages','Photography','Acclaimed conservation photographer Art Wolfe\'s breathtaking collection of nighttime images from every continent, with an introduction by IDA\'s Executive Director. A portion of proceeds supports IDA. Coffee table book that makes the case for darkness through pure visual impact.','https://bookshop.org/p/books/night-on-earth-art-wolfe/15926543','','','',this)">
-          <div class="cover-fallback"><div>&#127750;</div><div class="cover-fallback-title">Night on Earth</div></div>
-        </div>
-        <div class="book-info">
-          <div class="book-title">Night on Earth</div>
-          <div class="book-author">Art Wolfe</div>
-          <div class="book-actions">
-            <a href="https://bookshop.org/p/books/night-on-earth-art-wolfe/15926543" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
-            <button class="book-btn-more" onclick="openModal('Night on Earth','Art Wolfe','All Ages','Photography','Acclaimed conservation photographer Art Wolfe\'s breathtaking collection of nighttime images from every continent, with an introduction by IDA\'s Executive Director. A portion of proceeds supports IDA. Coffee table book that makes the case for darkness through pure visual impact.','https://bookshop.org/p/books/night-on-earth-art-wolfe/15926543','','','',null)">More</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card" style="animation-delay:0.11s">
-        <div class="book-cover" onclick="openModal('To Know a Starry Night','Paul Bogard &amp; Beau Rogers','Teens+','Photography','Also shelved under Nature Writing. A photo-rich book pairing Beau Rogers\' stunning astrophotography with Bogard\'s essays on the night sky. Produced and sold directly through Bogard\'s website -- this is where to buy it.','https://bookshop.org/p/books/to-know-a-starry-night-paul-bogard/17264872','http://www.paul-bogard.com/books-and-writings','Author','9781647790127',this)">
-          <img src="" alt="To Know a Starry Night" data-isbn="9781647790127">
-          <div class="cover-fallback"><div>&#127776;</div><div class="cover-fallback-title">To Know a Starry Night</div></div>
-        </div>
-        <div class="book-info">
-          <div class="book-title">To Know a Starry Night</div>
-          <div class="book-author">Paul Bogard &amp; Beau Rogers</div>
-          <div class="book-actions">
-            <a href="http://www.paul-bogard.com/books-and-writings" class="book-btn-author" target="_blank" rel="noopener">Author &#8599;</a>
-            <a href="https://bookshop.org/p/books/to-know-a-starry-night-paul-bogard/17264872" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card" style="animation-delay:0.14s">
-        <div class="book-cover" onclick="openModal('Spirits Dancing','Travis Novitsky &amp; Annette S. Lee','All Ages','Photography','A stunning Minnesota-made photography book pairing Travis Novitsky\'s night sky images with text by Indigenous astrophysicist Annette S. Lee. Novitsky is from Grand Portage on Lake Superior and co-produced Northern Nights, Starry Skies. Lee is founder of Native Skywatchers. Together they weave Western science and Ojibwe and D/Lakota star knowledge into a celebration of the aurora and Milky Way. Published by the Minnesota Historical Society Press, 2023.','https://bookshop.org/p/books/spirits-dancing-the-night-sky-indigenous-knowledge-and-living-connections-to-the-cosmos-travis-novitsky/19345678','https://www.travisnovitsky.com','Author','9781681341125',this)">
-          <img src="" alt="Spirits Dancing" data-isbn="9781681341125">
-          <div class="cover-fallback"><div>&#127756;</div><div class="cover-fallback-title">Spirits Dancing</div></div>
-          <div class="book-new-badge">2023</div>
-        </div>
-        <div class="book-info">
-          <div class="book-title">Spirits Dancing</div>
-          <div class="book-author">Novitsky &amp; Lee</div>
-          <div class="book-actions">
-            <a href="https://www.travisnovitsky.com" class="book-btn-author" target="_blank" rel="noopener">Author &#8599;</a>
-            <a href="https://bookshop.org/p/books/spirits-dancing-the-night-sky-indigenous-knowledge-and-living-connections-to-the-cosmos-travis-novitsky/19345678" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
-            <button class="book-btn-more" onclick="openModal('Spirits Dancing','Travis Novitsky &amp; Annette S. Lee','All Ages','Photography','A stunning Minnesota-made photography book pairing Travis Novitsky\'s night sky images with text by Indigenous astrophysicist Annette S. Lee. Novitsky is from Grand Portage on Lake Superior and co-produced Northern Nights, Starry Skies. Lee is founder of Native Skywatchers. Together they weave Western science and Ojibwe and D/Lakota star knowledge into a celebration of the aurora and Milky Way. Published by the Minnesota Historical Society Press, 2023.','https://bookshop.org/p/books/spirits-dancing-the-night-sky-indigenous-knowledge-and-living-connections-to-the-cosmos-travis-novitsky/19345678','https://www.travisnovitsky.com','Author','9781681341125',null)">More</button>
-          </div>
-        </div>
-      </div>
-
-    </div>
+    <div class="book-grid" id="grid-photo"></div>
   </div>
 
-  <!-- HISTORY & CULTURE -->
+  <!-- HISTORY -->
   <div class="shelf" id="history">
     <div class="shelf-head">
       <div class="shelf-title"><span>&#127981;</span>History &amp; Culture</div>
-      <div class="shelf-count">5 books</div>
+      <div class="shelf-count" id="count-history"></div>
     </div>
-    <div class="book-grid">
-
-      <div class="book-card" style="animation-delay:0.05s">
-        <div class="book-cover" onclick="openModal('The Human Cosmos','Jo Marchant','Adults','History','A sweeping history of humanity\'s relationship with the stars -- from Stonehenge to the space age -- and what we lose when we lose the night sky. Marchant is the author of Cure and a contributing editor at Nature. A deeply researched, beautifully written case for why the cosmos matters to civilization.','https://bookshop.org/p/books/the-human-cosmos-civilization-and-the-stars-jo-marchant/14700000','','','9780593183014',this)">
-          <img src="" alt="The Human Cosmos" data-isbn="9780593183014">
-          <div class="cover-fallback"><div>&#127776;</div><div class="cover-fallback-title">The Human Cosmos</div></div>
-        </div>
-        <div class="book-info">
-          <div class="book-title">The Human Cosmos</div>
-          <div class="book-author">Jo Marchant</div>
-          <div class="book-actions">
-            <a href="https://bookshop.org/p/books/the-human-cosmos-civilization-and-the-stars-jo-marchant/14700000" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
-            <button class="book-btn-more" onclick="openModal('The Human Cosmos','Jo Marchant','Adults','History','A sweeping history of humanity\'s relationship with the stars -- from Stonehenge to the space age -- and what we lose when we lose the night sky. Marchant is the author of Cure and a contributing editor at Nature. A deeply researched, beautifully written case for why the cosmos matters to civilization.','https://bookshop.org/p/books/the-human-cosmos-civilization-and-the-stars-jo-marchant/14700000','','','9780593183014',null)">More</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card" style="animation-delay:0.08s">
-        <div class="book-cover" onclick="openModal('The First Astronomers','Duane Hamacher','Teens+','History','A groundbreaking exploration of Indigenous astronomical traditions from Australia, the Pacific, Africa, and the Americas. Shows how traditional star knowledge guided navigation, agriculture, and culture for millennia -- and why the loss of dark skies is also a loss of Indigenous heritage.','https://bookshop.org/p/books/the-first-astronomers-how-indigenous-elders-read-the-stars-duane-hamacher/17534567','','','9781760877200',this)">
-          <img src="" alt="The First Astronomers" data-isbn="9781760877200">
-          <div class="cover-fallback"><div>&#11088;</div><div class="cover-fallback-title">The First Astronomers</div></div>
-        </div>
-        <div class="book-info">
-          <div class="book-title">The First Astronomers</div>
-          <div class="book-author">Duane Hamacher</div>
-          <div class="book-actions">
-            <a href="https://bookshop.org/p/books/the-first-astronomers-how-indigenous-elders-read-the-stars-duane-hamacher/17534567" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
-            <button class="book-btn-more" onclick="openModal('The First Astronomers','Duane Hamacher','Teens+','History','A groundbreaking exploration of Indigenous astronomical traditions from Australia, the Pacific, Africa, and the Americas. Shows how traditional star knowledge guided navigation, agriculture, and culture for millennia -- and why the loss of dark skies is also a loss of Indigenous heritage.','https://bookshop.org/p/books/the-first-astronomers-how-indigenous-elders-read-the-stars-duane-hamacher/17534567','','','9781760877200',null)">More</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card" style="animation-delay:0.11s">
-        <div class="book-cover" onclick="openModal('Starborn: How the Stars Made Us','Roberto Trotta','Teens+','History','A cosmologist\'s exploration of how the stars shaped human civilization, culture, and consciousness -- and what their disappearance means for our future. Trotta is a professor at Imperial College London. Argues that losing the stars is losing a part of what makes us human.','https://bookshop.org/p/books/starborn-how-the-stars-made-us-and-who-we-would-be-without-them-roberto-trotta/17123456','','','9781541674776',this)">
-          <img src="" alt="Starborn" data-isbn="9781541674776">
-          <div class="cover-fallback"><div>&#127756;</div><div class="cover-fallback-title">Starborn</div></div>
-        </div>
-        <div class="book-info">
-          <div class="book-title">Starborn</div>
-          <div class="book-author">Roberto Trotta</div>
-          <div class="book-actions">
-            <a href="https://bookshop.org/p/books/starborn-how-the-stars-made-us-and-who-we-would-be-without-them-roberto-trotta/17123456" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
-            <button class="book-btn-more" onclick="openModal('Starborn: How the Stars Made Us','Roberto Trotta','Teens+','History','A cosmologist\'s exploration of how the stars shaped human civilization, culture, and consciousness -- and what their disappearance means for our future. Trotta is a professor at Imperial College London. Argues that losing the stars is losing a part of what makes us human.','https://bookshop.org/p/books/starborn-how-the-stars-made-us-and-who-we-would-be-without-them-roberto-trotta/17123456','','','9781541674776',null)">More</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card" style="animation-delay:0.14s">
-        <div class="book-cover" onclick="openModal('Night Sky with the Naked Eye','Bob King','All Ages','Stargazing Guide','A practical and inspiring guide to the night sky from Duluth-based astronomer and writer Bob King -- known as Astro Bob. No telescope required. King covers how to find planets, watch meteor showers, spot the ISS, and develop a personal relationship with the night sky. A great first book for someone who wants to start looking up. Minnesota-made.','https://bookshop.org/p/books/night-sky-with-the-naked-eye-bob-king/7234567','https://astrobob.areavoices.com','Author','9781624143090',this)">
-          <img src="" alt="Night Sky with the Naked Eye" data-isbn="9781624143090">
-          <div class="cover-fallback"><div>&#11088;</div><div class="cover-fallback-title">Night Sky with the Naked Eye</div></div>
-        </div>
-        <div class="book-info">
-          <div class="book-title">Night Sky with the Naked Eye</div>
-          <div class="book-author">Bob King</div>
-          <div class="book-actions">
-            <a href="https://bookshop.org/p/books/night-sky-with-the-naked-eye-bob-king/7234567" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
-            <button class="book-btn-more" onclick="openModal('Night Sky with the Naked Eye','Bob King','All Ages','Stargazing Guide','A practical and inspiring guide to the night sky from Duluth-based astronomer and writer Bob King -- known as Astro Bob. No telescope required. King covers how to find planets, watch meteor showers, spot the ISS, and develop a personal relationship with the night sky. A great first book for someone who wants to start looking up. Minnesota-made.','https://bookshop.org/p/books/night-sky-with-the-naked-eye-bob-king/7234567','https://astrobob.areavoices.com','Author','9781624143090',null)">More</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card" style="animation-delay:0.17s">
-        <div class="book-cover" onclick="openModal('Spirits Dancing','Travis Novitsky &amp; Annette S. Lee','All Ages','Indigenous Knowledge &amp; Photography','Also shelved under Photography. A Minnesota-made book weaving Travis Novitsky\'s night sky photography with Indigenous star knowledge by astrophysicist Annette S. Lee of Native Skywatchers. Traces Ojibwe and D/Lakota relationships to the aurora and Milky Way alongside Western science -- a model of two-eyed seeing. Minnesota Historical Society Press, 2023.','https://bookshop.org/p/books/spirits-dancing-the-night-sky-indigenous-knowledge-and-living-connections-to-the-cosmos-travis-novitsky/19345678','https://www.travisnovitsky.com','Author','9781681341125',this)">
-          <img src="" alt="Spirits Dancing" data-isbn="9781681341125">
-          <div class="cover-fallback"><div>&#127756;</div><div class="cover-fallback-title">Spirits Dancing</div></div>
-          <div class="book-new-badge">2023</div>
-        </div>
-        <div class="book-info">
-          <div class="book-title">Spirits Dancing</div>
-          <div class="book-author">Novitsky &amp; Lee</div>
-          <div class="book-actions">
-            <a href="https://www.travisnovitsky.com" class="book-btn-author" target="_blank" rel="noopener">Author &#8599;</a>
-            <a href="https://bookshop.org/p/books/spirits-dancing-the-night-sky-indigenous-knowledge-and-living-connections-to-the-cosmos-travis-novitsky/19345678" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
-            <button class="book-btn-more" onclick="openModal('Spirits Dancing','Travis Novitsky &amp; Annette S. Lee','All Ages','Indigenous Knowledge &amp; Photography','Also shelved under Photography. A Minnesota-made book weaving Travis Novitsky\'s night sky photography with Indigenous star knowledge by astrophysicist Annette S. Lee of Native Skywatchers. Traces Ojibwe and D/Lakota relationships to the aurora and Milky Way alongside Western science -- a model of two-eyed seeing. Minnesota Historical Society Press, 2023.','https://bookshop.org/p/books/spirits-dancing-the-night-sky-indigenous-knowledge-and-living-connections-to-the-cosmos-travis-novitsky/19345678','https://www.travisnovitsky.com','Author','9781681341125',null)">More</button>
-          </div>
-        </div>
-      </div>
-
-    </div>
+    <div class="book-grid" id="grid-history"></div>
   </div>
 
   <!-- FICTION -->
   <div class="shelf" id="fiction">
     <div class="shelf-head">
       <div class="shelf-title"><span>&#128214;</span>Fiction</div>
-      <div class="shelf-count">1 book</div>
+      <div class="shelf-count" id="count-fiction"></div>
     </div>
-    <div class="book-grid">
-
-      <div class="book-card" style="animation-delay:0.05s">
-        <div class="book-cover" onclick="openModal('Under a Dark Sky','Lori Rader-Day','Adults','Fiction','A gripping murder mystery set in a dark sky park -- a grieving widow, a group of strangers, and a killer who\'s watching. A great gateway read for dark sky newcomers who love fiction, and a clever way to introduce people to International Dark Sky Parks through story.','https://bookshop.org/p/books/under-a-dark-sky-lori-rader-day/7082671','','','9780062790989',this)">
-          <img src="" alt="Under a Dark Sky" data-isbn="9780062790989">
-          <div class="cover-fallback"><div>&#128269;</div><div class="cover-fallback-title">Under a Dark Sky</div></div>
-        </div>
-        <div class="book-info">
-          <div class="book-title">Under a Dark Sky</div>
-          <div class="book-author">Lori Rader-Day</div>
-          <div class="book-actions">
-            <a href="https://bookshop.org/p/books/under-a-dark-sky-lori-rader-day/7082671" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
-            <button class="book-btn-more" onclick="openModal('Under a Dark Sky','Lori Rader-Day','Adults','Fiction','A gripping murder mystery set in a dark sky park -- a grieving widow, a group of strangers, and a killer who\'s watching. A great gateway read for dark sky newcomers who love fiction, and a clever way to introduce people to International Dark Sky Parks through story.','https://bookshop.org/p/books/under-a-dark-sky-lori-rader-day/7082671','','','9780062790989',null)">More</button>
-          </div>
-        </div>
-      </div>
-
-    </div>
+    <div class="book-grid" id="grid-fiction"></div>
   </div>
 
-  <!-- KIDS & TEENS -->
+  <!-- KIDS -->
   <div class="shelf" id="kids">
     <div class="shelf-head">
       <div class="shelf-title"><span>&#127775;</span>Kids &amp; Teens</div>
-      <div class="shelf-count">7 books</div>
+      <div class="shelf-count" id="count-kids"></div>
     </div>
-    <div class="book-grid">
-
-      <div class="book-card" style="animation-delay:0.05s">
-        <div class="book-cover" onclick="openModal('What If Night?','Paul Bogard','Ages 2–5','Picture Book','A charming, mission-perfect introduction to light pollution for the youngest readers -- by Minnesota\'s own Paul Bogard, who sits on SSN\'s board. A little girl and her dog explore the wonders of darkness: fireflies, nocturnal animals, the moon and stars. Includes discussion questions and a did-you-know section. Illustrated by Sarah Holden. From Keystone Canyon Press, 2020.','https://keystonecanyon.com/products/what-if-night','http://www.paul-bogard.com','Author','9781953055019',this)">
-          <img src="" alt="What If Night?" data-isbn="9781953055019">
-          <div class="cover-fallback"><div>&#127771;</div><div class="cover-fallback-title">What If Night?</div></div>
-          <div class="book-age-badge">Ages 2–5</div>
-        </div>
-        <div class="book-info">
-          <div class="book-title">What If Night?</div>
-          <div class="book-author">Paul Bogard</div>
-          <div class="book-actions">
-            <a href="http://www.paul-bogard.com" class="book-btn-author" target="_blank" rel="noopener">Author &#8599;</a>
-            <a href="https://keystonecanyon.com/products/what-if-night" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
-            <button class="book-btn-more" onclick="openModal('What If Night?','Paul Bogard','Ages 2–5','Picture Book','A charming, mission-perfect introduction to light pollution for the youngest readers -- by Minnesota\'s own Paul Bogard, who sits on SSN\'s board. A little girl and her dog explore the wonders of darkness: fireflies, nocturnal animals, the moon and stars. Includes discussion questions and a did-you-know section. Illustrated by Sarah Holden. From Keystone Canyon Press, 2020.','https://keystonecanyon.com/products/what-if-night','http://www.paul-bogard.com','Author','9781953055019',null)">More</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card" style="animation-delay:0.08s">
-        <div class="book-cover" onclick="openModal('The Stars Just Up the Street','Sue Soltis','Ages 3–7','Picture Book','Mabel loves stars -- but from her backyard she can only see a handful. Her grandfather remembers thousands. Together they set out to convince their neighbors, and eventually the mayor, to turn off the lights for one night. A joyful story about community, advocacy, and what\'s waiting just up the street. On DarkSky International\'s 2021 recommended list and named a Smithsonian Air and Space best book. Illustrated by Christine Davenier. Candlewick Press, 2020.','https://bookshop.org/p/books/the-stars-just-up-the-street-sue-soltis/495b07a1b74c689e','','','9780763698348',this)">
-          <img src="" alt="The Stars Just Up the Street" data-isbn="9780763698348">
-          <div class="cover-fallback"><div>&#11088;</div><div class="cover-fallback-title">The Stars Just Up the Street</div></div>
-          <div class="book-age-badge">Ages 3–7</div>
-        </div>
-        <div class="book-info">
-          <div class="book-title">The Stars Just Up the Street</div>
-          <div class="book-author">Sue Soltis</div>
-          <div class="book-actions">
-            <a href="https://bookshop.org/p/books/the-stars-just-up-the-street-sue-soltis/495b07a1b74c689e" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
-            <button class="book-btn-more" onclick="openModal('The Stars Just Up the Street','Sue Soltis','Ages 3–7','Picture Book','Mabel loves stars -- but from her backyard she can only see a handful. Her grandfather remembers thousands. Together they set out to convince their neighbors, and eventually the mayor, to turn off the lights for one night. A joyful story about community, advocacy, and what\'s waiting just up the street. On DarkSky International\'s 2021 recommended list and named a Smithsonian Air and Space best book. Illustrated by Christine Davenier. Candlewick Press, 2020.','https://bookshop.org/p/books/the-stars-just-up-the-street-sue-soltis/495b07a1b74c689e','','','9780763698348',null)">More</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card" style="animation-delay:0.11s">
-        <div class="book-cover" onclick="openModal('Follow the Moon Home','Philippe Cousteau &amp; Deborah Hopkinson','Ages 4–6','Picture Book','Viv and her classmates discover that beachfront lights are disorienting loggerhead sea turtle hatchlings -- and launch a community campaign called Lights Out for Loggerheads to fix it. A beautifully illustrated story of youth activism with a direct light pollution angle, from the wildlife perspective. Based on a true environmental effort. Illustrated by Meilo So. Chronicle Books.','https://bookshop.org/p/books/follow-the-moon-home-a-tale-of-one-idea-twenty-kids-and-a-hundred-sea-turtles-philippe-cousteau/8234567','','','9781452112411',this)">
-          <img src="" alt="Follow the Moon Home" data-isbn="9781452112411">
-          <div class="cover-fallback"><div>&#127754;</div><div class="cover-fallback-title">Follow the Moon Home</div></div>
-          <div class="book-age-badge">Ages 4–6</div>
-        </div>
-        <div class="book-info">
-          <div class="book-title">Follow the Moon Home</div>
-          <div class="book-author">Cousteau &amp; Hopkinson</div>
-          <div class="book-actions">
-            <a href="https://bookshop.org/p/books/follow-the-moon-home-a-tale-of-one-idea-twenty-kids-and-a-hundred-sea-turtles-philippe-cousteau/8234567" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
-            <button class="book-btn-more" onclick="openModal('Follow the Moon Home','Philippe Cousteau &amp; Deborah Hopkinson','Ages 4–6','Picture Book','Viv and her classmates discover that beachfront lights are disorienting loggerhead sea turtle hatchlings -- and launch a community campaign called Lights Out for Loggerheads to fix it. A beautifully illustrated story of youth activism with a direct light pollution angle, from the wildlife perspective. Based on a true environmental effort. Illustrated by Meilo So. Chronicle Books.','https://bookshop.org/p/books/follow-the-moon-home-a-tale-of-one-idea-twenty-kids-and-a-hundred-sea-turtles-philippe-cousteau/8234567','','','9781452112411',null)">More</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card" style="animation-delay:0.14s">
-        <div class="book-cover" onclick="openModal('Dark Skies','Lindsey Hobson','Kids (4-8)','Picture Book','A beautifully illustrated picture book about a family\'s stargazing adventure and the importance of dark skies. Introduces light pollution gently through family connection and the wonder of a star-filled night. Perfect for bedtime or as a classroom read-aloud.','https://bookshop.org/p/books/dark-skies-lindsey-hobson/18234567','','','9781956378351',this)">
-          <img src="" alt="Dark Skies" data-isbn="9781956378351">
-          <div class="cover-fallback"><div>&#127775;</div><div class="cover-fallback-title">Dark Skies</div></div>
-          <div class="book-age-badge">Ages 4–8</div>
-        </div>
-        <div class="book-info">
-          <div class="book-title">Dark Skies</div>
-          <div class="book-author">Lindsey Hobson</div>
-          <div class="book-actions">
-            <a href="https://bookshop.org/p/books/dark-skies-lindsey-hobson/18234567" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
-            <button class="book-btn-more" onclick="openModal('Dark Skies','Lindsey Hobson','Kids (4-8)','Picture Book','A beautifully illustrated picture book about a family\'s stargazing adventure and the importance of dark skies. Introduces light pollution gently through family connection and the wonder of a star-filled night. Perfect for bedtime or as a classroom read-aloud.','https://bookshop.org/p/books/dark-skies-lindsey-hobson/18234567','','','9781956378351',null)">More</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card" style="animation-delay:0.17s">
-        <div class="book-cover" onclick="openModal('There Once Was a Sky Full of Stars','Bob Crelin','Kids (4-8)','Picture Book','A beloved classic introducing light pollution to young readers through charming illustrations. Crelin takes children from a sky full of visible stars to one obscured by light pollution and back -- showing what we have and what we stand to lose. A staple of dark sky education programs.','https://bookshop.org/p/books/there-once-was-a-sky-full-of-stars-bob-crelin/7123456','','','',this)">
-          <div class="cover-fallback"><div>&#11088;</div><div class="cover-fallback-title">There Once Was a Sky Full of Stars</div></div>
-          <div class="book-age-badge">Ages 4–8</div>
-        </div>
-        <div class="book-info">
-          <div class="book-title">There Once Was a Sky Full of Stars</div>
-          <div class="book-author">Bob Crelin</div>
-          <div class="book-actions">
-            <a href="https://bookshop.org/p/books/there-once-was-a-sky-full-of-stars-bob-crelin/7123456" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
-            <button class="book-btn-more" onclick="openModal('There Once Was a Sky Full of Stars','Bob Crelin','Kids (4-8)','Picture Book','A beloved classic introducing light pollution to young readers through charming illustrations. Crelin takes children from a sky full of visible stars to one obscured by light pollution and back -- showing what we have and what we stand to lose. A staple of dark sky education programs.','https://bookshop.org/p/books/there-once-was-a-sky-full-of-stars-bob-crelin/7123456','','','',null)">More</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-card" style="animation-delay:0.20s">
-        <div class="book-cover" onclick="openModal('Lights Out','Marsha Diane Arnold','Kids (6-8)','Picture Book','A gentle picture book exploring what nocturnal animals experience when humans leave their lights on -- told with warmth and stunning watercolors. Won multiple awards for environmental children\'s literature. A natural conversation starter about backyard wildlife and responsible lighting.','https://bookshop.org/p/books/lights-out-marsha-diane-arnold/14234567','','','',this)">
-          <div class="cover-fallback"><div>&#127773;</div><div class="cover-fallback-title">Lights Out</div></div>
-          <div class="book-age-badge">Ages 6–8</div>
-        </div>
-        <div class="book-info">
-          <div class="book-title">Lights Out</div>
-          <div class="book-author">Marsha Diane Arnold</div>
-          <div class="book-actions">
-            <a href="https://bookshop.org/p/books/lights-out-marsha-diane-arnold/14234567" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
-            <button class="book-btn-more" onclick="openModal('Lights Out','Marsha Diane Arnold','Kids (6-8)','Picture Book','A gentle picture book exploring what nocturnal animals experience when humans leave their lights on -- told with warmth and stunning watercolors. Won multiple awards for environmental children\'s literature. A natural conversation starter about backyard wildlife and responsible lighting.','https://bookshop.org/p/books/lights-out-marsha-diane-arnold/14234567','','','',null)">More</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- COMING SOON -->
-      <div class="book-card" style="animation-delay:0.23s">
-        <div class="book-cover" style="cursor:default; opacity:0.65;">
-          <div class="cover-fallback" style="flex-direction:column; gap:8px; padding:12px; text-align:center;">
-            <div style="font-size:22px;">&#128336;</div>
-            <div class="cover-fallback-title" style="color:var(--accent);">Coming 2026</div>
-          </div>
-          <div class="book-new-badge" style="background:var(--accent2); color:var(--bg);">Soon</div>
-        </div>
-        <div class="book-info">
-          <div class="book-title" style="color:var(--muted2);">How to See the Sky</div>
-          <div class="book-author">Paul Bogard</div>
-          <div class="book-actions">
-            <a href="http://www.paul-bogard.com" class="book-btn-author" target="_blank" rel="noopener">Author &#8599;</a>
-          </div>
-        </div>
-      </div>
-
-    </div>
+    <div class="book-grid" id="grid-kids"></div>
   </div>
 
 </div>
@@ -928,98 +338,488 @@
 </footer>
 
 <script>
-// Google Books cover loader
-function loadCovers() {
-  document.querySelectorAll('[data-isbn]').forEach(img => {
-    const isbn = img.dataset.isbn;
-    if (!isbn) return;
-    fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`)
-      .then(r => r.json())
-      .then(data => {
-        const thumb = data.items?.[0]?.volumeInfo?.imageLinks?.thumbnail;
-        if (thumb) {
-          const hiRes = thumb.replace('zoom=1', 'zoom=3').replace('http://', 'https://');
-          img.src = hiRes;
-          img.onload = () => {
-            const fallback = img.nextElementSibling;
-            if (fallback && fallback.classList.contains('cover-fallback')) {
-              fallback.style.display = 'none';
-            }
-          };
-          img.onerror = () => { img.style.display = 'none'; };
-        }
-      })
-      .catch(() => {});
-  });
-  // Featured covers
-  const featured = [
-    { id: 'fc-nightfaring', isbn: '9780306835339' },
-    { id: 'fc-endofnight', isbn: '9780316182904' },
-    { id: 'fc-innerclock', isbn: '9780593538906' },
-    { id: 'fc-darkness', isbn: '9781668000908' },
-  ];
-  featured.forEach(({ id, isbn }) => {
-    const img = document.getElementById(id);
-    if (!img) return;
-    fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`)
-      .then(r => r.json())
-      .then(data => {
-        const thumb = data.items?.[0]?.volumeInfo?.imageLinks?.thumbnail;
-        if (thumb) {
-          img.src = thumb.replace('zoom=1', 'zoom=3').replace('http://', 'https://');
-          img.onload = () => {
-            const fb = img.nextElementSibling;
-            if (fb) fb.style.display = 'none';
-          };
-        }
-      })
-      .catch(() => {});
-  });
+// ─────────────────────────────────────────────
+// BOOK DATA
+// ─────────────────────────────────────────────
+const BOOKS = [
+  // FEATURED (rendered separately as large cards)
+  {
+    id: 'nightfaring',
+    featured: true,
+    newBadge: 'New 2026',
+    title: 'Nightfaring: In Search of the Disappearing Darkness',
+    author: 'Megan Eaves-Egenes',
+    age: 'Adults',
+    shelf: 'nature',
+    isbn: '9780306835339',
+    desc: 'A profound travel memoir following a dark sky advocate from New Zealand to Uzbekistan, Italy to the Himalaya -- exploring how humans have depended on, feared, and mythologized darkness throughout history. Editor of DarkSky International\'s Nightscape.',
+    authorUrl: 'https://meganeaves.com/',
+    authorLabel: 'Author\'s site',
+    findUrl: 'https://bookshop.org/p/books/nightfaring-in-search-of-the-disappearing-darkness-megan-eaves-egenes/5978221c68baf133',
+    emoji: '📘'
+  },
+  {
+    id: 'endofnight',
+    featured: true,
+    title: 'The End of Night',
+    author: 'Paul Bogard',
+    age: 'Adults',
+    shelf: 'advocacy',
+    isbn: '9780316182904',
+    desc: 'The definitive exploration of natural darkness and what we lose when artificial light takes over our nights -- weaving together science, history, and personal journey across five continents. A Nautilus Silver Award winner, called the light pollution movement\'s Silent Spring.',
+    authorUrl: 'http://www.paul-bogard.com/books/the-end-of-night-paul-bogard',
+    authorLabel: 'Author\'s site',
+    findUrl: 'https://bookshop.org/p/books/the-end-of-night-searching-for-natural-darkness-in-an-age-of-artificial-light-paul-bogard/16618824',
+    emoji: '🌙'
+  },
+  {
+    id: 'innerclock',
+    featured: true,
+    newBadge: '2024',
+    title: 'The Inner Clock: Living in Sync with Our Circadian Rhythms',
+    author: 'Lynne Peeples',
+    age: 'Adults',
+    shelf: 'health',
+    isbn: '9780593538906',
+    desc: 'Groundbreaking science journalism on how artificial light is disrupting our biology. Peeples spent 10 days in a Cold War bunker without sunlight or clocks to understand her own circadian rhythm -- and came back with a book that reframes how you see every night.',
+    authorUrl: 'https://lynnepeeples.com/the-inner-clock/',
+    authorLabel: 'Author\'s site',
+    findUrl: 'https://bookshop.org/p/books/the-inner-clock-living-in-sync-with-our-circadian-rhythms-lynne-peeples/21055207',
+    emoji: '⏰'
+  },
+  {
+    id: 'darkness',
+    featured: true,
+    title: 'The Darkness Manifesto',
+    author: 'Johan Eklöf',
+    age: 'Adults',
+    shelf: 'advocacy',
+    isbn: '9781668000908',
+    desc: 'A passionate, scientifically grounded case for protecting darkness as an essential environmental resource, from a Swedish bat scientist. Winner of the Penn Libraries Book Prize in Sustainability. Named a Best Book of the Year by Scientific American and the New York Times.',
+    authorUrl: 'https://www.simonandschuster.com/books/The-Darkness-Manifesto/Johan-Eklof/9781668000908',
+    authorLabel: 'Publisher\'s page',
+    findUrl: 'https://bookshop.org/p/books/the-darkness-manifesto-on-light-pollution-night-ecology-and-the-ancient-rhythms-that-sustain-life-johan-ekl-f/c4bb587368c19f6e',
+    emoji: '🌑'
+  },
+
+  // ADVOCACY
+  {
+    shelf: 'advocacy',
+    title: 'All Through the Night',
+    author: 'Dani Robertson',
+    age: 'Adults',
+    isbn: '9780008586720',
+    desc: 'A celebration of the night and an urgent case for protecting it. Dani Robertson is the Dark Sky Officer for Snowdonia National Park and recipient of the IDA Dark Sky Defender Award 2022. Written from Wales, this book weaves personal stories, science, and folklore into a compelling argument for why darkness matters -- to our health, our wildlife, and our sense of place.',
+    authorUrl: 'https://harpercollins.co.uk/blogs/authors/dani-robertson',
+    authorLabel: 'Publisher',
+    findUrl: 'https://bookshop.org/p/books/all-through-the-night-why-our-lives-depend-on-dark-skies-dani-robertson/18991898',
+    emoji: '🔭'
+  },
+  {
+    shelf: 'advocacy',
+    title: 'Fighting Light Pollution',
+    author: 'IDA / Bob Mizon',
+    age: 'Adults',
+    isbn: '',
+    desc: 'The essential practical manual for reducing light pollution -- covering lighting design, policy guidance, and community action strategies. Published by the International Dark-Sky Association, this is the go-to reference for advocates working with municipalities, planners, and local governments.',
+    findUrl: 'https://bookshop.org/p/books/fighting-light-pollution-smart-lighting-solutions-for-individuals-and-communities-international-dark-sky-association/7370694',
+    emoji: '📋'
+  },
+  {
+    shelf: 'advocacy',
+    title: 'Light Pollution: Responses and Remedies',
+    author: 'Bob Mizon',
+    age: 'Adults',
+    isbn: '9781461438212',
+    desc: 'Advocacy strategies, community success stories, and practical lighting guidance from one of the UK\'s leading dark sky advocates. Now in its second edition, this is a comprehensive guide to the science behind light pollution and what communities can do about it.',
+    findUrl: 'https://bookshop.org/p/books/light-pollution-responses-and-remedies-bob-mizon/12066745',
+    emoji: '📌'
+  },
+  {
+    shelf: 'advocacy',
+    title: 'Let There Be Night',
+    author: 'Ed. Paul Bogard',
+    age: 'Adults',
+    isbn: '',
+    desc: 'A landmark anthology of essays by scientists, poets, and writers making the case for darkness. Contributors include luminaries across ecology, philosophy, and literature. One of the most compelling collections on light pollution ever assembled, and the book that helped launch the modern dark sky movement.',
+    authorUrl: 'http://www.paul-bogard.com/books-and-writings',
+    authorLabel: 'Author',
+    findUrl: 'https://bookshop.org/p/books/let-there-be-night-testimony-on-behalf-of-the-dark-paul-bogard/7513249',
+    emoji: '⭐'
+  },
+  {
+    shelf: 'advocacy',
+    title: 'Under the Stars: A Journey Into Light',
+    author: 'Matt Gaw',
+    age: 'Adults',
+    isbn: '9781783965823',
+    desc: 'A lyrical exploration of what we lose when artificial light fills our nights -- told through nocturnal walks through moonlit Suffolk, the Scottish highlands, Dartmoor, and the Isle of Coll. Gaw is a naturalist and journalist with Suffolk Wildlife Trust. Recommended by DarkSky International. A beautiful entry point for readers who come to this issue through nature rather than science.',
+    findUrl: 'https://bookshop.org/p/books/under-the-stars-a-journey-into-light-matt-gaw/19876543',
+    emoji: '🌟'
+  },
+
+  // SCIENCE & ECOLOGY
+  {
+    shelf: 'science',
+    title: 'Ecological Consequences of Artificial Night Lighting',
+    author: 'Rich & Longcore',
+    age: 'Adults',
+    isbn: '9781559631297',
+    desc: 'The scientific anthology that put ALAN ecology on the map. A comprehensive look at how artificial light at night disrupts wildlife across all taxonomic groups -- insects, birds, mammals, and marine life. Essential reading for anyone doing science-based advocacy.',
+    findUrl: 'https://bookshop.org/p/books/ecological-consequences-of-artificial-night-lighting-catherine-rich/7370695',
+    emoji: '🌿'
+  },
+  {
+    shelf: 'science',
+    title: 'Dark Matters: Nature\'s Reaction to Light Pollution',
+    author: 'Joan Galat',
+    age: 'Teens (10+)',
+    isbn: '',
+    ageBadge: 'Ages 10+',
+    desc: 'An engaging middle-grade look at how light pollution affects wildlife, with activities and practical actions for young readers. Clear, accessible, and science-based -- a great bridge book for older kids getting interested in dark sky advocacy.',
+    findUrl: 'https://bookshop.org/p/books/dark-matters-natures-reaction-to-light-pollution-joan-galat/9234567',
+    emoji: '🌍'
+  },
+  {
+    shelf: 'science',
+    title: 'Night Magic',
+    author: 'Leigh Ann Henion',
+    age: 'Adults',
+    isbn: '9781643752600',
+    newBadge: '2024',
+    desc: 'DarkSky International\'s first book club pick. A luminous exploration of nocturnal wonders -- fireflies, bioluminescent mushrooms, migratory salamanders, moth festivals. Henion stays close to home in Appalachia to show that dazzling darkness exists in our own backyards. NYT bestseller.',
+    authorUrl: 'https://leighannhenion.com/books',
+    authorLabel: 'Author',
+    findUrl: 'https://bookshop.org/p/books/night-magic-adventures-among-glowworms-moon-gardens-and-other-marvels-of-the-dark-leigh-ann-henion/21118246',
+    emoji: '✨'
+  },
+
+  // NATURE WRITING
+  {
+    shelf: 'nature',
+    title: 'To Know a Starry Night',
+    author: 'Paul Bogard & Beau Rogers',
+    age: 'Teens+',
+    isbn: '9781647790127',
+    desc: 'A photo-rich exploration of starry skies blending photography and essays on the wonder and importance of the natural night. Bogard is Minnesota\'s own voice for dark skies -- he teaches at Hamline University in St. Paul and has spent his career making the case for darkness.',
+    authorUrl: 'http://www.paul-bogard.com/books-and-writings',
+    authorLabel: 'Author',
+    findUrl: 'https://bookshop.org/p/books/to-know-a-starry-night-paul-bogard/17264872',
+    emoji: '🌌'
+  },
+
+  // HEALTH
+  {
+    shelf: 'health',
+    title: 'The Inner Clock: Living in Sync with Our Circadian Rhythms',
+    author: 'Lynne Peeples',
+    age: 'Adults',
+    isbn: '9780593538906',
+    newBadge: '2024',
+    desc: 'Groundbreaking science journalism on how artificial light is disrupting our biology. Peeples spent 10 days in a Cold War bunker to understand her own circadian rhythm. Blurbed by Daniel Pink, James Nestor, and Mary Roach. A Wall Street Journal Best Science Book. Deeply connected to the light pollution issue through the lens of public health.',
+    authorUrl: 'https://lynnepeeples.com/the-inner-clock/',
+    authorLabel: 'Author',
+    findUrl: 'https://bookshop.org/p/books/the-inner-clock-living-in-sync-with-our-circadian-rhythms-lynne-peeples/21055207',
+    emoji: '⏰'
+  },
+
+  // TRAVEL
+  {
+    shelf: 'travel',
+    title: 'Nightfaring: In Search of the Disappearing Darkness',
+    author: 'Megan Eaves-Egenes',
+    age: 'Adults',
+    isbn: '9780306835339',
+    newBadge: '2026',
+    desc: 'Also shelved under Nature Writing. A travel memoir that moves through a dozen countries in search of vanishing darkness -- from Uzbek observatories to Maori star compasses to Irish banshee traditions. Equal parts travelogue, environmental memoir, and dark sky advocacy.',
+    authorUrl: 'https://meganeaves.com/',
+    authorLabel: 'Author',
+    findUrl: 'https://bookshop.org/p/books/nightfaring-in-search-of-the-disappearing-darkness-megan-eaves-egenes/5978221c68baf133',
+    emoji: '📘'
+  },
+  {
+    shelf: 'travel',
+    title: 'Astrotourism',
+    author: 'Michael Marlin',
+    age: 'Adults',
+    isbn: '9781637420669',
+    desc: 'A comprehensive guide to dark-sky-focused travel -- where to go, what to see, and how the dark sky movement is transforming tourism globally. Covers International Dark Sky Parks, eclipse chasing, aurora viewing, and the growing community of people who plan trips around the night sky.',
+    findUrl: 'https://bookshop.org/p/books/astrotourism-star-gazers-eclipse-chasers-and-the-dark-sky-movement-michael-marlin/17612345',
+    emoji: '🌍'
+  },
+  {
+    shelf: 'travel',
+    title: 'Dark Skies: A Practical Guide to Astrotourism',
+    author: 'Valerie Stimac',
+    age: 'Adults',
+    isbn: '9781788686198',
+    desc: 'Lonely Planet\'s guide to the world\'s best dark sky destinations, with practical tips for stargazing travel on every continent. Covers International Dark Sky Parks, reserves, and sanctuaries -- a solid starting point for anyone planning a dark sky trip.',
+    findUrl: 'https://bookshop.org/p/books/dark-skies-a-practical-guide-to-astrotourism-valerie-stimac/12844444',
+    emoji: '🌠'
+  },
+
+  // PHOTOGRAPHY
+  {
+    shelf: 'photo',
+    title: 'SKYGLOW',
+    author: 'Mehmedovic & Heffernan',
+    age: 'All Ages',
+    isbn: '9780692625804',
+    desc: 'A stunning full-color astrophotography book produced in collaboration with IDA, exploring the most light-polluted cities and pristine dark sky preserves of North America. Over 2,000 copies sold. Comes with a Blu-Ray of timelapse videos. Order directly from the creators.',
+    authorUrl: 'https://skyglowproject.com/products',
+    authorLabel: 'Order direct',
+    findUrl: 'https://skyglowproject.com/products',
+    emoji: '🌃'
+  },
+  {
+    shelf: 'photo',
+    title: 'Night on Earth',
+    author: 'Art Wolfe',
+    age: 'All Ages',
+    isbn: '',
+    desc: 'Acclaimed conservation photographer Art Wolfe\'s breathtaking collection of nighttime images from every continent, with an introduction by IDA\'s Executive Director. A portion of proceeds supports IDA. Coffee table book that makes the case for darkness through pure visual impact.',
+    findUrl: 'https://bookshop.org/p/books/night-on-earth-art-wolfe/15926543',
+    emoji: '🌎'
+  },
+  {
+    shelf: 'photo',
+    title: 'To Know a Starry Night',
+    author: 'Paul Bogard & Beau Rogers',
+    age: 'Teens+',
+    isbn: '9781647790127',
+    desc: 'Also shelved under Nature Writing. A photo-rich book pairing Beau Rogers\' stunning astrophotography with Bogard\'s essays on the night sky. Produced and sold directly through Bogard\'s website.',
+    authorUrl: 'http://www.paul-bogard.com/books-and-writings',
+    authorLabel: 'Author',
+    findUrl: 'https://bookshop.org/p/books/to-know-a-starry-night-paul-bogard/17264872',
+    emoji: '🌌'
+  },
+  {
+    shelf: 'photo',
+    title: 'Spirits Dancing',
+    author: 'Novitsky & Lee',
+    age: 'All Ages',
+    isbn: '9781681341125',
+    newBadge: '2023',
+    desc: 'A stunning Minnesota-made photography book pairing Travis Novitsky\'s night sky images with text by Indigenous astrophysicist Annette S. Lee of Native Skywatchers. Novitsky is from Grand Portage on Lake Superior and co-produced Northern Nights, Starry Skies. Together they weave Western science and Ojibwe and D/Lakota star knowledge into a celebration of the aurora and Milky Way. Minnesota Historical Society Press.',
+    authorUrl: 'https://www.travisnovitsky.com',
+    authorLabel: 'Author',
+    findUrl: 'https://bookshop.org/p/books/spirits-dancing-the-night-sky-indigenous-knowledge-and-living-connections-to-the-cosmos-travis-novitsky/19345678',
+    emoji: '🌌'
+  },
+
+  // HISTORY & CULTURE
+  {
+    shelf: 'history',
+    title: 'The Human Cosmos',
+    author: 'Jo Marchant',
+    age: 'Adults',
+    isbn: '9780593183014',
+    desc: 'A sweeping history of humanity\'s relationship with the stars -- from Stonehenge to the space age -- and what we lose when we lose the night sky. Marchant is a contributing editor at Nature. A deeply researched, beautifully written case for why the cosmos matters to civilization.',
+    findUrl: 'https://bookshop.org/p/books/the-human-cosmos-civilization-and-the-stars-jo-marchant/14700000',
+    emoji: '🌌'
+  },
+  {
+    shelf: 'history',
+    title: 'The First Astronomers',
+    author: 'Duane Hamacher',
+    age: 'Teens+',
+    isbn: '9781760877200',
+    desc: 'A groundbreaking exploration of Indigenous astronomical traditions from Australia, the Pacific, Africa, and the Americas. Shows how traditional star knowledge guided navigation, agriculture, and culture for millennia -- and why the loss of dark skies is also a loss of Indigenous heritage.',
+    findUrl: 'https://bookshop.org/p/books/the-first-astronomers-how-indigenous-elders-read-the-stars-duane-hamacher/17534567',
+    emoji: '⭐'
+  },
+  {
+    shelf: 'history',
+    title: 'Starborn: How the Stars Made Us',
+    author: 'Roberto Trotta',
+    age: 'Teens+',
+    isbn: '9781541674776',
+    desc: 'A cosmologist\'s exploration of how the stars shaped human civilization, culture, and consciousness -- and what their disappearance means for our future. Trotta is a professor at Imperial College London. Argues that losing the stars is losing a part of what makes us human.',
+    findUrl: 'https://bookshop.org/p/books/starborn-how-the-stars-made-us-and-who-we-would-be-without-them-roberto-trotta/17123456',
+    emoji: '🌟'
+  },
+  {
+    shelf: 'history',
+    title: 'Night Sky with the Naked Eye',
+    author: 'Bob King',
+    age: 'All Ages',
+    isbn: '9781624143090',
+    desc: 'A practical and inspiring guide to the night sky from Duluth-based astronomer Bob King -- known as Astro Bob. No telescope required. King covers how to find planets, watch meteor showers, spot the ISS, and develop a personal relationship with the night sky. Minnesota-made.',
+    authorUrl: 'https://skyandtelescope.org/author/robert-king-2/',
+    authorLabel: 'Author',
+    findUrl: 'https://bookshop.org/p/books/night-sky-with-the-naked-eye-bob-king/7234567',
+    emoji: '⭐'
+  },
+  {
+    shelf: 'history',
+    title: 'Spirits Dancing',
+    author: 'Novitsky & Lee',
+    age: 'All Ages',
+    isbn: '9781681341125',
+    newBadge: '2023',
+    desc: 'Also shelved under Photography. A Minnesota-made book weaving Travis Novitsky\'s night sky photography with Indigenous star knowledge by astrophysicist Annette S. Lee of Native Skywatchers. Traces Ojibwe and D/Lakota relationships to the aurora and Milky Way alongside Western science. Minnesota Historical Society Press.',
+    authorUrl: 'https://www.travisnovitsky.com',
+    authorLabel: 'Author',
+    findUrl: 'https://bookshop.org/p/books/spirits-dancing-the-night-sky-indigenous-knowledge-and-living-connections-to-the-cosmos-travis-novitsky/19345678',
+    emoji: '🌌'
+  },
+
+  // FICTION
+  {
+    shelf: 'fiction',
+    title: 'Under a Dark Sky',
+    author: 'Lori Rader-Day',
+    age: 'Adults',
+    isbn: '9780062790989',
+    desc: 'A gripping murder mystery set in a dark sky park -- a grieving widow, a group of strangers, and a killer who\'s watching. A great gateway read for dark sky newcomers who love fiction, and a clever way to introduce people to International Dark Sky Parks through story.',
+    findUrl: 'https://bookshop.org/p/books/under-a-dark-sky-lori-rader-day/7082671',
+    emoji: '🔍'
+  },
+
+  // KIDS & TEENS
+  {
+    shelf: 'kids',
+    title: 'What If Night?',
+    author: 'Paul Bogard',
+    age: 'Ages 2-5',
+    isbn: '9781953055019',
+    ageBadge: 'Ages 2-5',
+    desc: 'A charming, mission-perfect introduction to light pollution for the youngest readers -- by Minnesota\'s own Paul Bogard, who sits on SSN\'s board. A little girl and her dog explore the wonders of darkness: fireflies, nocturnal animals, the moon and stars. Includes discussion questions and a did-you-know section. Illustrated by Sarah Holden. Keystone Canyon Press.',
+    authorUrl: 'http://www.paul-bogard.com',
+    authorLabel: 'Author',
+    findUrl: 'https://keystonecanyon.com/products/what-if-night',
+    emoji: '🌙'
+  },
+  {
+    shelf: 'kids',
+    title: 'The Stars Just Up the Street',
+    author: 'Sue Soltis',
+    age: 'Ages 3-7',
+    isbn: '9780763698348',
+    ageBadge: 'Ages 3-7',
+    desc: 'Mabel loves stars -- but from her backyard she can only see a handful. Her grandfather remembers thousands. Together they set out to convince their neighbors and the mayor to turn off the lights for one night. A joyful story about community, advocacy, and what\'s waiting just up the street. On DarkSky International\'s 2021 recommended list. Candlewick Press.',
+    findUrl: 'https://bookshop.org/p/books/the-stars-just-up-the-street-sue-soltis/495b07a1b74c689e',
+    emoji: '⭐'
+  },
+  {
+    shelf: 'kids',
+    title: 'Follow the Moon Home',
+    author: 'Cousteau & Hopkinson',
+    age: 'Ages 4-6',
+    isbn: '9781452112411',
+    ageBadge: 'Ages 4-6',
+    desc: 'Viv and her classmates discover that beachfront lights are disorienting loggerhead sea turtle hatchlings -- and launch a community campaign called Lights Out for Loggerheads. A beautifully illustrated story of youth activism with a direct light pollution angle, from the wildlife perspective. Based on a true environmental effort. Chronicle Books.',
+    findUrl: 'https://bookshop.org/p/books/follow-the-moon-home-a-tale-of-one-idea-twenty-kids-and-a-hundred-sea-turtles-philippe-cousteau/8234567',
+    emoji: '🐢'
+  },
+  {
+    shelf: 'kids',
+    title: 'Dark Skies',
+    author: 'Lindsey Hobson',
+    age: 'Ages 4-8',
+    isbn: '9781956378351',
+    ageBadge: 'Ages 4-8',
+    desc: 'A beautifully illustrated picture book about a family\'s stargazing adventure and the importance of dark skies. Introduces light pollution gently through family connection and the wonder of a star-filled night. Perfect for bedtime or as a classroom read-aloud.',
+    findUrl: 'https://bookshop.org/p/books/dark-skies-lindsey-hobson/18234567',
+    emoji: '🌟'
+  },
+  {
+    shelf: 'kids',
+    title: 'There Once Was a Sky Full of Stars',
+    author: 'Bob Crelin',
+    age: 'Ages 4-8',
+    isbn: '',
+    ageBadge: 'Ages 4-8',
+    desc: 'A beloved classic introducing light pollution to young readers through charming illustrations. Crelin takes children from a sky full of visible stars to one obscured by light pollution and back -- showing what we have and what we stand to lose. A staple of dark sky education programs.',
+    findUrl: 'https://bookshop.org/p/books/there-once-was-a-sky-full-of-stars-bob-crelin/7123456',
+    emoji: '⭐'
+  },
+  {
+    shelf: 'kids',
+    title: 'Lights Out',
+    author: 'Marsha Diane Arnold',
+    age: 'Ages 6-8',
+    isbn: '',
+    ageBadge: 'Ages 6-8',
+    desc: 'A gentle picture book exploring what nocturnal animals experience when humans leave their lights on -- told with warmth and stunning watercolors. Won multiple awards for environmental children\'s literature. A natural conversation starter about backyard wildlife and responsible lighting.',
+    findUrl: 'https://bookshop.org/p/books/lights-out-marsha-diane-arnold/14234567',
+    emoji: '🦉'
+  },
+  {
+    shelf: 'kids',
+    comingSoon: true,
+    title: 'How to See the Sky',
+    author: 'Paul Bogard',
+    age: 'Adults',
+    isbn: '',
+    desc: 'Paul Bogard\'s forthcoming book from HarperCollins, 2026. Watch this space.',
+    authorUrl: 'http://www.paul-bogard.com',
+    authorLabel: 'Author',
+    emoji: '🕐'
+  }
+];
+
+// ─────────────────────────────────────────────
+// COVER LOADING
+// ─────────────────────────────────────────────
+const coverCache = {};
+
+function loadCover(isbn, imgEl, fallbackEl) {
+  if (!isbn) return;
+  if (coverCache[isbn]) {
+    applyCover(coverCache[isbn], imgEl, fallbackEl);
+    return;
+  }
+  fetch('https://www.googleapis.com/books/v1/volumes?q=isbn:' + isbn + '&fields=items/volumeInfo/imageLinks')
+    .then(r => r.json())
+    .then(data => {
+      const thumb = data.items && data.items[0] && data.items[0].volumeInfo && data.items[0].volumeInfo.imageLinks && data.items[0].volumeInfo.imageLinks.thumbnail;
+      if (thumb) {
+        const url = thumb.replace('zoom=1', 'zoom=2').replace(/^http:/, 'https:');
+        coverCache[isbn] = url;
+        applyCover(url, imgEl, fallbackEl);
+      }
+    })
+    .catch(() => {});
 }
 
-// Modal
-function openModal(title, author, age, category, desc, findUrl, authorUrl, authorLabel, isbn, coverEl) {
-  document.getElementById('modal-title').textContent = title;
-  document.getElementById('modal-author').textContent = author;
-  document.getElementById('modal-desc').textContent = desc;
+function applyCover(url, imgEl, fallbackEl) {
+  if (!imgEl) return;
+  imgEl.onload = () => { if (fallbackEl) fallbackEl.style.display = 'none'; imgEl.style.display = 'block'; };
+  imgEl.onerror = () => { imgEl.style.display = 'none'; if (fallbackEl) fallbackEl.style.display = 'flex'; };
+  imgEl.style.display = 'none';
+  imgEl.src = url;
+}
+
+// ─────────────────────────────────────────────
+// MODAL
+// ─────────────────────────────────────────────
+function openModal(book) {
+  document.getElementById('modal-title').textContent = book.title;
+  document.getElementById('modal-author').textContent = book.author;
+  document.getElementById('modal-desc').textContent = book.desc;
 
   const badges = document.getElementById('modal-badges');
-  badges.innerHTML = `<span class="badge badge-age">${age}</span><span class="badge badge-age">${category}</span>`;
+  badges.innerHTML = '<span class="badge badge-age">' + (book.age || '') + '</span>';
+  if (book.newBadge) badges.innerHTML += '<span class="badge badge-new">' + book.newBadge + '</span>';
 
   const actions = document.getElementById('modal-actions');
   actions.innerHTML = '';
-  if (authorUrl) {
-    actions.innerHTML += `<a href="${authorUrl}" class="modal-btn-author" target="_blank" rel="noopener">${authorLabel}'s site &#8599;</a>`;
+  if (book.authorUrl) {
+    actions.innerHTML += '<a href="' + book.authorUrl + '" class="modal-btn-author" target="_blank" rel="noopener">' + (book.authorLabel || 'Author') + ' &#8599;</a>';
   }
-  if (findUrl) {
-    actions.innerHTML += `<a href="${findUrl}" class="modal-btn-find" target="_blank" rel="noopener">Find this book &#8599;</a>`;
+  if (book.findUrl && !book.comingSoon) {
+    actions.innerHTML += '<a href="' + book.findUrl + '" class="modal-btn-find" target="_blank" rel="noopener">Find this book &#8599;</a>';
   }
 
-  // Cover in modal
   const modalImg = document.getElementById('modal-img');
   const modalFb = document.getElementById('modal-fallback');
   modalImg.src = '';
-  modalImg.style.display = 'block';
-  modalFb.style.display = 'none';
+  modalImg.style.display = 'none';
+  modalFb.style.display = 'flex';
+  modalFb.textContent = book.emoji || '📚';
 
-  if (isbn) {
-    fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`)
-      .then(r => r.json())
-      .then(data => {
-        const thumb = data.items?.[0]?.volumeInfo?.imageLinks?.thumbnail;
-        if (thumb) {
-          modalImg.src = thumb.replace('zoom=1', 'zoom=3').replace('http://', 'https://');
-          modalImg.onerror = () => { modalImg.style.display = 'none'; modalFb.style.display = 'flex'; };
-        } else {
-          modalImg.style.display = 'none';
-          modalFb.style.display = 'flex';
-        }
-      })
-      .catch(() => { modalImg.style.display = 'none'; modalFb.style.display = 'flex'; });
-  } else {
-    modalImg.style.display = 'none';
-    modalFb.style.display = 'flex';
-  }
+  if (book.isbn) loadCover(book.isbn, modalImg, modalFb);
 
   document.getElementById('modal').classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -1029,27 +829,145 @@ function closeModal() {
   document.getElementById('modal').classList.remove('open');
   document.body.style.overflow = '';
 }
-
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-// Nav scroll highlight
-const sections = document.querySelectorAll('.shelf, #featured');
-const navLinks = document.querySelectorAll('.cat-nav-link');
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      navLinks.forEach(l => l.classList.remove('active'));
-      const active = document.querySelector(`.cat-nav-link[href="#${entry.target.id}"]`);
-      if (active) {
-        active.classList.add('active');
-        active.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
-      }
+// ─────────────────────────────────────────────
+// RENDER
+// ─────────────────────────────────────────────
+function buildFeaturedCard(book, delay) {
+  const div = document.createElement('div');
+  div.className = 'feat-card' + (book.newBadge ? ' new-book' : '');
+  div.style.animationDelay = delay + 's';
+
+  const imgId = 'fc-' + book.id;
+  div.innerHTML = `
+    <div class="feat-cover">
+      <img id="${imgId}" src="" alt="${book.title}" style="display:none">
+      <div class="cover-fallback">${book.emoji || '📚'}</div>
+    </div>
+    <div class="feat-info">
+      <div class="feat-badges">
+        ${book.newBadge ? '<span class="badge badge-new">' + book.newBadge + '</span>' : ''}
+        <span class="badge badge-age">${book.age}</span>
+      </div>
+      <div class="feat-title">${book.title}</div>
+      <div class="feat-author">${book.author}</div>
+      <div class="feat-desc">${book.desc}</div>
+      <div class="feat-actions">
+        ${book.authorUrl ? '<a href="' + book.authorUrl + '" class="btn-author" target="_blank" rel="noopener">' + (book.authorLabel || 'Author') + ' &#8599;</a>' : ''}
+        ${book.findUrl ? '<a href="' + book.findUrl + '" class="btn-find" target="_blank" rel="noopener">Find this book &#8599;</a>' : ''}
+      </div>
+    </div>
+  `;
+  return div;
+}
+
+function buildBookCard(book, delay) {
+  const div = document.createElement('div');
+  div.className = 'book-card';
+  div.style.animationDelay = delay + 's';
+
+  if (book.comingSoon) {
+    div.style.opacity = '0.65';
+    div.style.cursor = 'default';
+    div.innerHTML = `
+      <div class="book-cover" style="cursor:default;">
+        <div class="cover-fallback" style="flex-direction:column;gap:8px;padding:12px;text-align:center;">
+          <div style="font-size:22px;">🕐</div>
+          <div class="cover-fallback-title" style="color:var(--accent);">Coming 2026</div>
+        </div>
+        <div class="book-coming-badge">Soon</div>
+      </div>
+      <div class="book-info">
+        <div class="book-title" style="color:var(--muted2);">${book.title}</div>
+        <div class="book-author">${book.author}</div>
+        ${book.authorUrl ? '<div style="margin-top:4px;"><a href="' + book.authorUrl + '" class="book-btn-author" target="_blank" rel="noopener" style="font-family:Outfit,sans-serif;font-size:10px;font-weight:600;color:var(--muted2);text-decoration:none;padding:4px 8px;border:1px solid var(--border);border-radius:4px;">' + (book.authorLabel || 'Author') + ' &#8599;</a></div>' : ''}
+      </div>
+    `;
+    return div;
+  }
+
+  const imgId = 'book-' + Math.random().toString(36).slice(2, 8);
+  div.innerHTML = `
+    <div class="book-cover">
+      <img id="${imgId}" src="" alt="${book.title}" style="display:none">
+      <div class="cover-fallback" style="flex-direction:column;gap:8px;padding:12px;text-align:center;">
+        <div style="font-size:22px;">${book.emoji || '📚'}</div>
+        <div class="cover-fallback-title">${book.title}</div>
+      </div>
+      ${book.ageBadge ? '<div class="book-age-badge">' + book.ageBadge + '</div>' : ''}
+      ${book.newBadge ? '<div class="book-new-badge">' + book.newBadge + '</div>' : ''}
+    </div>
+    <div class="book-info">
+      <div class="book-title">${book.title}</div>
+      <div class="book-author">${book.author}</div>
+    </div>
+  `;
+
+  div.querySelector('.book-cover').addEventListener('click', () => openModal(book));
+  div.addEventListener('click', e => {
+    if (!e.target.closest('a')) openModal(book);
+  });
+
+  return div;
+}
+
+function renderAll() {
+  // Featured
+  const featGrid = document.getElementById('featured-grid');
+  const featured = BOOKS.filter(b => b.featured);
+  featured.forEach((book, i) => {
+    const card = buildFeaturedCard(book, 0.05 + i * 0.05);
+    featGrid.appendChild(card);
+    if (book.isbn) {
+      const img = card.querySelector('img');
+      const fb = card.querySelector('.cover-fallback');
+      loadCover(book.isbn, img, fb);
     }
   });
-}, { rootMargin: '-20% 0px -70% 0px' });
-sections.forEach(s => observer.observe(s));
 
-loadCovers();
+  // Shelves
+  const shelves = ['advocacy', 'science', 'nature', 'health', 'travel', 'photo', 'history', 'fiction', 'kids'];
+  shelves.forEach(shelfId => {
+    const grid = document.getElementById('grid-' + shelfId);
+    const count = document.getElementById('count-' + shelfId);
+    const books = BOOKS.filter(b => !b.featured && b.shelf === shelfId);
+    books.forEach((book, i) => {
+      const card = buildBookCard(book, 0.05 + i * 0.03);
+      grid.appendChild(card);
+      if (book.isbn && !book.comingSoon) {
+        const img = card.querySelector('img');
+        const fb = card.querySelector('.cover-fallback');
+        if (img && fb) loadCover(book.isbn, img, fb);
+      }
+    });
+    const realBooks = books.filter(b => !b.comingSoon);
+    if (count) count.textContent = realBooks.length + (realBooks.length === 1 ? ' book' : ' books');
+  });
+}
+
+// ─────────────────────────────────────────────
+// NAV SCROLL HIGHLIGHT
+// ─────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  renderAll();
+
+  const sections = document.querySelectorAll('.shelf, #featured');
+  const navLinks = document.querySelectorAll('.cat-nav-link');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector('.cat-nav-link[href="#' + entry.target.id + '"]');
+        if (active) {
+          active.classList.add('active');
+          active.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+        }
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+});
 </script>
 </body>
 </html>
