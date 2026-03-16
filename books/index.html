@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reading List — Starry Skies North</title>
+<meta name="description" content="Books on light pollution, dark sky advocacy, circadian science, ecology, and the night sky -- curated by Starry Skies North.">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #07090f;
+    --surface: #0e1220;
+    --surface2: #141929;
+    --surface3: #1a2135;
+    --border: rgba(120,180,240,0.11);
+    --border-hover: rgba(120,180,240,0.32);
+    --accent: #7ec8f0;
+    --accent2: #f6ad55;
+    --accent3: #a3e4b0;
+    --text: #f0f4f8;
+    --body-text: #c8d8e8;
+    --muted: #7a90a8;
+    --muted2: #a0b4c8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Open Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; font-size: 16px; }
+  body::before {
+    content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background-image:
+      radial-gradient(1px 1px at 8% 12%, rgba(255,255,255,0.45) 0%, transparent 100%),
+      radial-gradient(1px 1px at 22% 44%, rgba(255,255,255,0.28) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 38% 7%, rgba(255,255,255,0.38) 0%, transparent 100%),
+      radial-gradient(1px 1px at 54% 61%, rgba(255,255,255,0.2) 0%, transparent 100%),
+      radial-gradient(1px 1px at 68% 23%, rgba(255,255,255,0.45) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 79% 78%, rgba(255,255,255,0.28) 0%, transparent 100%),
+      radial-gradient(1px 1px at 91% 42%, rgba(255,255,255,0.38) 0%, transparent 100%),
+      radial-gradient(1px 1px at 14% 83%, rgba(255,255,255,0.22) 0%, transparent 100%),
+      radial-gradient(1px 1px at 59% 91%, rgba(255,255,255,0.32) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 33% 67%, rgba(255,255,255,0.38) 0%, transparent 100%),
+      radial-gradient(1px 1px at 84% 9%, rgba(255,255,255,0.45) 0%, transparent 100%),
+      radial-gradient(1px 1px at 4% 52%, rgba(255,255,255,0.22) 0%, transparent 100%),
+      radial-gradient(1px 1px at 46% 31%, rgba(255,255,255,0.32) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 94% 86%, rgba(255,255,255,0.38) 0%, transparent 100%),
+      radial-gradient(1px 1px at 17% 19%, rgba(255,255,255,0.22) 0%, transparent 100%);
+  }
+
+  .site-header { position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border); background: rgba(7,9,15,0.95); backdrop-filter: blur(12px); }
+  .site-header-inner { max-width: 1200px; margin: 0 auto; padding: 0 28px; height: 56px; display: flex; align-items: center; justify-content: space-between; }
+  .site-logo { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+  .logo-mark { width: 32px; height: 32px; border: 1.5px solid var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; color: var(--accent); flex-shrink: 0; }
+  .logo-text { font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; color: var(--text); text-transform: uppercase; line-height: 1.25; }
+  .logo-text span { color: var(--accent); display: block; }
+  .back-link { font-family: 'Outfit', sans-serif; font-size: 11px; letter-spacing: 0.08em; color: var(--muted2); text-decoration: none; text-transform: uppercase; transition: color 0.15s; }
+  .back-link:hover { color: var(--accent); }
+
+  .cat-nav { position: sticky; top: 56px; z-index: 90; background: rgba(7,9,15,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .cat-nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 28px; display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; }
+  .cat-nav-inner::-webkit-scrollbar { display: none; }
+  .cat-nav-link { font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 600; color: var(--muted2); text-decoration: none; padding: 14px 18px; white-space: nowrap; border-bottom: 2px solid transparent; transition: color 0.15s, border-color 0.15s; }
+  .cat-nav-link:hover { color: var(--text); }
+  .cat-nav-link.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
+
+  .hero { padding: 52px 0 44px; border-bottom: 1px solid var(--border); display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .hero-left .eyebrow { font-family: 'Outfit', sans-serif; font-size: 11px; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; margin-bottom: 12px; }
+  .hero-left h1 { font-family: 'Outfit', sans-serif; font-size: clamp(30px, 5vw, 50px); font-weight: 800; line-height: 1.04; letter-spacing: -0.025em; margin-bottom: 16px; }
+  .hero-left h1 span { color: var(--accent); }
+  .hero-left p { font-size: 15px; color: var(--body-text); line-height: 1.7; max-width: 520px; }
+  .hero-right { text-align: right; }
+  .bookshop-note { display: inline-flex; align-items: flex-start; gap: 10px; padding: 12px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; font-size: 13px; color: var(--body-text); line-height: 1.55; max-width: 260px; text-align: left; }
+  .bookshop-dot { width: 8px; height: 8px; min-width: 8px; border-radius: 50%; background: var(--accent3); margin-top: 4px; }
+  .book-count { font-family: 'Outfit', sans-serif; font-size: 12px; color: var(--muted2); margin-top: 10px; }
+  #total-count { color: var(--accent2); font-weight: 700; font-size: 14px; }
+
+  /* Featured */
+  .section { padding: 48px 0 20px; }
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 24px; }
+  .section-title { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
+  .section-subtitle { font-size: 13px; color: var(--muted2); }
+
+  .featured-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 16px; }
+  .feat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; display: flex; gap: 20px; transition: border-color 0.2s, transform 0.18s, box-shadow 0.2s; animation: fadeUp 0.3s ease forwards; opacity: 0; }
+  .feat-card:hover { border-color: var(--border-hover); transform: translateY(-2px); box-shadow: 0 10px 32px rgba(0,0,0,0.5); }
+  .feat-card.new-book { border-color: rgba(126,200,240,0.25); }
+
+  .feat-cover { width: 80px; min-width: 80px; height: 116px; border-radius: 5px; overflow: hidden; background: var(--surface2); flex-shrink: 0; position: relative; box-shadow: 3px 3px 12px rgba(0,0,0,0.6); }
+  .feat-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .cover-fallback { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 28px; background: var(--surface2); }
+
+  .feat-info { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+  .feat-badges { display: flex; gap: 6px; flex-wrap: wrap; }
+  .badge { font-family: 'Outfit', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; padding: 3px 9px; border-radius: 4px; text-transform: uppercase; }
+  .badge-new { background: rgba(126,200,240,0.15); color: var(--accent); border: 1px solid rgba(126,200,240,0.3); }
+  .badge-age { background: var(--surface2); color: var(--muted2); }
+
+  .feat-title { font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 700; line-height: 1.3; color: var(--text); }
+  .feat-author { font-size: 13px; color: var(--muted2); }
+  .feat-desc { font-size: 13px; color: var(--body-text); line-height: 1.65; flex: 1; }
+
+  .feat-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+  .btn-author { display: inline-flex; align-items: center; gap: 4px; padding: 6px 12px; border: 1px solid var(--border); border-radius: 5px; color: var(--muted2); font-family: 'Outfit', sans-serif; font-size: 11px; font-weight: 600; text-decoration: none; transition: all 0.15s; white-space: nowrap; }
+  .btn-author:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-find { display: inline-flex; align-items: center; gap: 4px; padding: 6px 12px; border: 1px solid var(--accent); border-radius: 5px; color: var(--accent); font-family: 'Outfit', sans-serif; font-size: 11px; font-weight: 700; text-decoration: none; transition: all 0.15s; white-space: nowrap; }
+  .btn-find:hover { background: var(--accent); color: var(--bg); }
+
+  /* Shelves */
+  .shelf { padding: 36px 0 8px; scroll-margin-top: 120px; }
+  .shelf-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+  .shelf-title { font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 700; color: var(--text); letter-spacing: -0.01em; }
+  .shelf-title span { color: var(--accent); margin-right: 8px; }
+  .shelf-count { font-family: 'Outfit', sans-serif; font-size: 12px; color: var(--muted); }
+
+  .book-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 22px; }
+
+  .book-card { display: flex; flex-direction: column; gap: 10px; animation: fadeUp 0.3s ease forwards; opacity: 0; }
+  .book-cover { width: 100%; aspect-ratio: 2/3; border-radius: 6px; overflow: hidden; background: var(--surface2); border: 1px solid var(--border); position: relative; box-shadow: 4px 5px 18px rgba(0,0,0,0.55); transition: transform 0.18s, box-shadow 0.18s; }
+  .book-card:hover .book-cover { transform: translateY(-3px); box-shadow: 4px 8px 24px rgba(0,0,0,0.65); }
+  .book-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .book-cover .cover-fallback { flex-direction: column; gap: 8px; padding: 12px; text-align: center; font-size: 22px; }
+  .cover-fallback-title { font-family: 'Outfit', sans-serif; font-size: 10px; font-weight: 700; color: var(--muted2); line-height: 1.3; }
+  .book-age-badge { position: absolute; top: 7px; left: 7px; font-family: 'Outfit', sans-serif; font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 3px; letter-spacing: 0.05em; text-transform: uppercase; background: rgba(7,9,15,0.8); color: var(--muted2); }
+  .book-new-badge { position: absolute; top: 7px; right: 7px; font-family: 'Outfit', sans-serif; font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 3px; background: var(--accent); color: var(--bg); }
+
+  .book-info { display: flex; flex-direction: column; gap: 3px; }
+  .book-title { font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700; line-height: 1.3; color: var(--text); }
+  .book-author { font-size: 11px; color: var(--muted2); margin-bottom: 4px; }
+  .book-actions { display: flex; gap: 5px; flex-wrap: wrap; }
+  .book-btn-author { font-family: 'Outfit', sans-serif; font-size: 10px; font-weight: 600; color: var(--muted2); text-decoration: none; padding: 4px 8px; border: 1px solid var(--border); border-radius: 4px; transition: all 0.15s; white-space: nowrap; }
+  .book-btn-author:hover { color: var(--accent); border-color: var(--accent); }
+  .book-btn-find { font-family: 'Outfit', sans-serif; font-size: 10px; font-weight: 700; color: var(--accent); text-decoration: none; padding: 4px 8px; border: 1px solid rgba(126,200,240,0.35); border-radius: 4px; transition: all 0.15s; white-space: nowrap; }
+  .book-btn-find:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  .site-footer { position: relative; z-index: 1; border-top: 1px solid var(--border); padding: 24px 0; margin-top: 48px; }
+  .site-footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 28px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+  .footer-note { font-size: 11px; color: var(--muted); font-family: 'Outfit', sans-serif; }
+  .footer-link { font-size: 11px; color: var(--muted2); text-decoration: none; font-family: 'Outfit', sans-serif; transition: color 0.15s; }
+  .footer-link:hover { color: var(--accent); }
+
+  @media (max-width: 700px) {
+    .featured-grid { grid-template-columns: 1fr; }
+    .hero { flex-direction: column; align-items: flex-start; }
+    .hero-right { text-align: left; }
+    .book-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="https://www.starryskiesnorth.org" class="site-logo">
+      <div class="logo-mark">&#10022;</div>
+      <div class="logo-text">Starry Skies <span>North</span></div>
+    </a>
+    <a href="https://petersonchris6510-droid.github.io/ssn-resources/" class="back-link">&#8592; Resource Library</a>
+  </div>
+</header>
+
+<nav class="cat-nav">
+  <div class="cat-nav-inner">
+    <a href="#featured" class="cat-nav-link active">Recommended</a>
+    <a href="#advocacy" class="cat-nav-link">Advocacy &amp; Policy</a>
+    <a href="#science" class="cat-nav-link">Science &amp; Ecology</a>
+    <a href="#nature" class="cat-nav-link">Nature Writing</a>
+    <a href="#health" class="cat-nav-link">Health &amp; Circadian</a>
+    <a href="#travel" class="cat-nav-link">Travel &amp; Astrotourism</a>
+    <a href="#photo" class="cat-nav-link">Photography</a>
+    <a href="#history" class="cat-nav-link">History &amp; Culture</a>
+    <a href="#fiction" class="cat-nav-link">Fiction</a>
+    <a href="#kids" class="cat-nav-link">Kids &amp; Teens</a>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="hero">
+    <div class="hero-left">
+      <div class="eyebrow">Resource Library</div>
+      <h1>Reading List:<br><span>Dark Skies &amp; Light Pollution</span></h1>
+      <p>Books on light pollution, dark sky advocacy, circadian science, ecology, photography, and the cultural importance of night -- curated by Starry Skies North.</p>
+    </div>
+    <div class="hero-right">
+      <div class="bookshop-note">
+        <div class="bookshop-dot"></div>
+        <span>Where possible we link to author websites. Purchase links go to Bookshop.org, which supports independent bookstores.</span>
+      </div>
+      <div class="book-count"><span id="total-count">26</span> books curated</div>
+    </div>
+  </div>
+
+  <!-- FEATURED -->
+  <div class="section" id="featured">
+    <div class="section-head">
+      <div class="section-title">Recommended reads</div>
+      <div class="section-subtitle">Start here</div>
+    </div>
+    <div class="featured-grid">
+
+      <div class="feat-card new-book" style="animation-delay:0.05s">
+        <div class="feat-cover">
+          <img src="https://covers.openlibrary.org/b/isbn/9780306835339-M.jpg" alt="Nightfaring cover" onerror="this.style.display='none'">
+          <div class="cover-fallback">&#128218;</div>
+        </div>
+        <div class="feat-info">
+          <div class="feat-badges"><span class="badge badge-new">New 2026</span><span class="badge badge-age">Adults</span></div>
+          <div class="feat-title">Nightfaring: In Search of the Disappearing Darkness</div>
+          <div class="feat-author">Megan Eaves-Egenes</div>
+          <div class="feat-desc">A profound travel memoir following a dark sky advocate from New Zealand to Uzbekistan, Italy to the Himalaya -- exploring how humans have depended on, feared, and mythologized darkness throughout history.</div>
+          <div class="feat-actions">
+            <a href="https://meganeaves.com/" class="btn-author" target="_blank" rel="noopener">Author's site &#8599;</a>
+            <a href="https://bookshop.org/p/books/nightfaring-in-search-of-the-disappearing-darkness-megan-eaves-egenes/5978221c68baf133" class="btn-find" target="_blank" rel="noopener">Find this book &#8599;</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="feat-card" style="animation-delay:0.1s">
+        <div class="feat-cover">
+          <img src="https://covers.openlibrary.org/b/isbn/9780316182904-M.jpg" alt="The End of Night cover" onerror="this.style.display='none'">
+          <div class="cover-fallback">&#127769;</div>
+        </div>
+        <div class="feat-info">
+          <div class="feat-badges"><span class="badge badge-age">Adults</span></div>
+          <div class="feat-title">The End of Night</div>
+          <div class="feat-author">Paul Bogard</div>
+          <div class="feat-desc">The definitive exploration of natural darkness and what we lose when artificial light takes over our nights -- weaving together science, history, and personal journey across five continents.</div>
+          <div class="feat-actions">
+            <a href="http://www.paul-bogard.com/books/the-end-of-night-paul-bogard" class="btn-author" target="_blank" rel="noopener">Author's site &#8599;</a>
+            <a href="https://bookshop.org/p/books/the-end-of-night-searching-for-natural-darkness-in-an-age-of-artificial-light-paul-bogard/8740614" class="btn-find" target="_blank" rel="noopener">Find this book &#8599;</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="feat-card new-book" style="animation-delay:0.15s">
+        <div class="feat-cover">
+          <img src="https://covers.openlibrary.org/b/isbn/9780593538906-M.jpg" alt="The Inner Clock cover" onerror="this.style.display='none'">
+          <div class="cover-fallback">&#9200;</div>
+        </div>
+        <div class="feat-info">
+          <div class="feat-badges"><span class="badge badge-new">2024</span><span class="badge badge-age">Adults</span></div>
+          <div class="feat-title">The Inner Clock: Living in Sync with Our Circadian Rhythms</div>
+          <div class="feat-author">Lynne Peeples</div>
+          <div class="feat-desc">Groundbreaking science journalism on how artificial light is disrupting our biology. Peeples spent 10 days in a Cold War bunker to understand her own circadian rhythm -- and came back with a book that changes how you see every night.</div>
+          <div class="feat-actions">
+            <a href="https://lynnepeeples.com/the-inner-clock/" class="btn-author" target="_blank" rel="noopener">Author's site &#8599;</a>
+            <a href="https://bookshop.org/p/books/the-inner-clock-living-in-sync-with-our-circadian-rhythms-lynne-peeples/20065514" class="btn-find" target="_blank" rel="noopener">Find this book &#8599;</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="feat-card" style="animation-delay:0.2s">
+        <div class="feat-cover">
+          <img src="https://covers.openlibrary.org/b/isbn/9781668000908-M.jpg" alt="The Darkness Manifesto cover" onerror="this.style.display='none'">
+          <div class="cover-fallback">&#127774;</div>
+        </div>
+        <div class="feat-info">
+          <div class="feat-badges"><span class="badge badge-age">Adults</span></div>
+          <div class="feat-title">The Darkness Manifesto</div>
+          <div class="feat-author">Johan Eklöf</div>
+          <div class="feat-desc">A passionate, scientifically grounded case for protecting darkness as an essential environmental resource -- winner of the Penn Libraries Book Prize in Sustainability and a Scientific American Best Book of the Year.</div>
+          <div class="feat-actions">
+            <a href="https://www.simonandschuster.com/books/The-Darkness-Manifesto/Johan-Eklof/9781668000908" class="btn-author" target="_blank" rel="noopener">Publisher's page &#8599;</a>
+            <a href="https://bookshop.org/p/books/the-darkness-manifesto-on-light-pollution-night-ecology-and-the-ancient-rhythms-that-sustain-life-johan-eklof/18377884" class="btn-find" target="_blank" rel="noopener">Find this book &#8599;</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ADVOCACY -->
+  <div class="shelf" id="advocacy">
+    <div class="shelf-head">
+      <div class="shelf-title"><span>&#128227;</span>Advocacy &amp; Policy</div>
+      <div class="shelf-count">5 books</div>
+    </div>
+    <div class="book-grid">
+
+      <div class="book-card" style="animation-delay:0.05s">
+        <div class="book-cover">
+          <img src="https://covers.openlibrary.org/b/isbn/9780008586720-M.jpg" alt="All Through the Night" onerror="this.style.display='none'">
+          <div class="cover-fallback"><div class="cover-fallback-icon">&#127773;</div><div class="cover-fallback-title">All Through the Night</div></div>
+        </div>
+        <div class="book-info">
+          <div class="book-title">All Through the Night</div>
+          <div class="book-author">Dani Robertson</div>
+          <div class="book-actions">
+            <a href="https://harpercollins.co.uk/blogs/authors/dani-robertson" class="book-btn-author" target="_blank" rel="noopener">Publisher &#8599;</a>
+            <a href="https://bookshop.org/p/books/all-through-the-night-why-our-lives-depend-on-dark-skies-dani-robertson/19823456" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="book-card" style="animation-delay:0.08s">
+        <div class="book-cover">
+          <div class="cover-fallback"><div class="cover-fallback-icon">&#128227;</div><div class="cover-fallback-title">Fighting Light Pollution</div></div>
+        </div>
+        <div class="book-info">
+          <div class="book-title">Fighting Light Pollution</div>
+          <div class="book-author">IDA / Bob Mizon</div>
+          <div class="book-actions">
+            <a href="https://bookshop.org/p/books/fighting-light-pollution-smart-lighting-solutions-for-individuals-and-communities-international-dark-sky-association/7370694" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="book-card" style="animation-delay:0.11s">
+        <div class="book-cover">
+          <img src="https://covers.openlibrary.org/b/isbn/9781461438212-M.jpg" alt="Light Pollution Responses and Remedies" onerror="this.style.display='none'">
+          <div class="cover-fallback"><div class="cover-fallback-icon">&#128204;</div><div class="cover-fallback-title">Responses &amp; Remedies</div></div>
+        </div>
+        <div class="book-info">
+          <div class="book-title">Light Pollution: Responses and Remedies</div>
+          <div class="book-author">Bob Mizon</div>
+          <div class="book-actions">
+            <a href="https://bookshop.org/p/books/light-pollution-responses-and-remedies-bob-mizon/12066745" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="book-card" style="animation-delay:0.14s">
+        <div class="book-cover">
+          <div class="cover-fallback"><div class="cover-fallback-icon">&#11088;</div><div class="cover-fallback-title">Let There Be Night</div></div>
+        </div>
+        <div class="book-info">
+          <div class="book-title">Let There Be Night</div>
+          <div class="book-author">Ed. Paul Bogard</div>
+          <div class="book-actions">
+            <a href="http://www.paul-bogard.com/books-and-writings" class="book-btn-author" target="_blank" rel="noopener">Author &#8599;</a>
+            <a href="https://bookshop.org/p/books/let-there-be-night-testimony-on-behalf-of-the-dark-paul-bogard/7513249" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="book-card" style="animation-delay:0.17s">
+        <div class="book-cover">
+          <div class="cover-fallback"><div class="cover-fallback-icon">&#127775;</div><div class="cover-fallback-title">Under the Stars</div></div>
+        </div>
+        <div class="book-info">
+          <div class="book-title">Under the Stars</div>
+          <div class="book-author">Matt Gaw</div>
+          <div class="book-actions">
+            <a href="https://bookshop.org/p/books/under-the-stars-how-we-lost-our-night-and-why-it-matters-matt-gaw/14424780" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SCIENCE & ECOLOGY -->
+  <div class="shelf" id="science">
+    <div class="shelf-head">
+      <div class="shelf-title"><span>&#127981;</span>Science &amp; Ecology</div>
+      <div class="shelf-count">3 books</div>
+    </div>
+    <div class="book-grid">
+
+      <div class="book-card" style="animation-delay:0.05s">
+        <div class="book-cover">
+          <img src="https://covers.openlibrary.org/b/isbn/9781559631297-M.jpg" alt="Ecological Consequences" onerror="this.style.display='none'">
+          <div class="cover-fallback"><div class="cover-fallback-icon">&#127748;</div><div class="cover-fallback-title">Ecological Consequences of ALAN</div></div>
+        </div>
+        <div class="book-info">
+          <div class="book-title">Ecological Consequences of Artificial Night Lighting</div>
+          <div class="book-author">Rich &amp; Longcore</div>
+          <div class="book-actions">
+            <a href="https://bookshop.org/p/books/ecological-consequences-of-artificial-night-lighting-catherine-rich/7370695" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="book-card" style="animation-delay:0.08s">
+        <div class="book-cover">
+          <div class="cover-fallback"><div class="cover-fallback-icon">&#127760;</div><div class="cover-fallback-title">Dark Matters</div></div>
+          <div class="book-new-badge">Ages 10+</div>
+        </div>
+        <div class="book-info">
+          <div class="book-title">Dark Matters: Nature's Reaction to Light Pollution</div>
+          <div class="book-author">Joan Galat</div>
+          <div class="book-actions">
+            <a href="https://bookshop.org/p/books/dark-matters-natures-reaction-to-light-pollution-joan-galat/9234567" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="book-card" style="animation-delay:0.11s">
+        <div class="book-cover">
+          <img src="https://covers.openlibrary.org/b/isbn/9781643752600-M.jpg" alt="Night Magic" onerror="this.style.display='none'">
+          <div class="cover-fallback"><div class="cover-fallback-icon">&#10024;</div><div class="cover-fallback-title">Night Magic</div></div>
+          <div class="book-new-badge">2024</div>
+        </div>
+        <div class="book-info">
+          <div class="book-title">Night Magic</div>
+          <div class="book-author">Leigh Ann Henion</div>
+          <div class="book-actions">
+            <a href="https://leighannhenion.com/books" class="book-btn-author" target="_blank" rel="noopener">Author &#8599;</a>
+            <a href="https://bookshop.org/p/books/night-magic-adventures-among-glowworms-moon-gardens-and-other-marvels-of-the-night-leigh-ann-henion/18693452" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- NATURE WRITING -->
+  <div class="shelf" id="nature">
+    <div class="shelf-head">
+      <div class="shelf-title"><span>&#127807;</span>Nature Writing</div>
+      <div class="shelf-count">2 books</div>
+    </div>
+    <div class="book-grid">
+
+      <div class="book-card" style="animation-delay:0.05s">
+        <div class="book-cover">
+          <img src="https://covers.openlibrary.org/b/isbn/9780306835339-M.jpg" alt="Nightfaring" onerror="this.style.display='none'">
+          <div class="cover-fallback"><div class="cover-fallback-icon">&#128218;</div><div class="cover-fallback-title">Nightfaring</div></div>
+          <div class="book-new-badge">2026</div>
+        </div>
+        <div class="book-info">
+          <div class="book-title">Nightfaring</div>
+          <div class="book-author">Megan Eaves-Egenes</div>
+          <div class="book-actions">
+            <a href="https://meganeaves.com/" class="book-btn-author" target="_blank" rel="noopener">Author &#8599;</a>
+            <a href="https://bookshop.org/p/books/nightfaring-in-search-of-the-disappearing-darkness-megan-eaves-egenes/5978221c68baf133" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="book-card" style="animation-delay:0.08s">
+        <div class="book-cover">
+          <img src="https://covers.openlibrary.org/b/isbn/9781647790127-M.jpg" alt="To Know a Starry Night" onerror="this.style.display='none'">
+          <div class="cover-fallback"><div class="cover-fallback-icon">&#127776;</div><div class="cover-fallback-title">To Know a Starry Night</div></div>
+        </div>
+        <div class="book-info">
+          <div class="book-title">To Know a Starry Night</div>
+          <div class="book-author">Paul Bogard &amp; Beau Rogers</div>
+          <div class="book-actions">
+            <a href="http://www.paul-bogard.com/books-and-writings" class="book-btn-author" target="_blank" rel="noopener">Author &#8599;</a>
+            <a href="https://bookshop.org/p/books/to-know-a-starry-night-paul-bogard/17264872" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- HEALTH -->
+  <div class="shelf" id="health">
+    <div class="shelf-head">
+      <div class="shelf-title"><span>&#9890;</span>Health &amp; Circadian</div>
+      <div class="shelf-count">1 book</div>
+    </div>
+    <div class="book-grid">
+
+      <div class="book-card" style="animation-delay:0.05s">
+        <div class="book-cover">
+          <img src="https://covers.openlibrary.org/b/isbn/9780593538906-M.jpg" alt="The Inner Clock" onerror="this.style.display='none'">
+          <div class="cover-fallback"><div class="cover-fallback-icon">&#9200;</div><div class="cover-fallback-title">The Inner Clock</div></div>
+          <div class="book-new-badge">2024</div>
+        </div>
+        <div class="book-info">
+          <div class="book-title">The Inner Clock</div>
+          <div class="book-author">Lynne Peeples</div>
+          <div class="book-actions">
+            <a href="https://lynnepeeples.com/the-inner-clock/" class="book-btn-author" target="_blank" rel="noopener">Author &#8599;</a>
+            <a href="https://bookshop.org/p/books/the-inner-clock-living-in-sync-with-our-circadian-rhythms-lynne-peeples/20065514" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TRAVEL -->
+  <div class="shelf" id="travel">
+    <div class="shelf-head">
+      <div class="shelf-title"><span>&#127758;</span>Travel &amp; Astrotourism</div>
+      <div class="shelf-count">3 books</div>
+    </div>
+    <div class="book-grid">
+
+      <div class="book-card" style="animation-delay:0.05s">
+        <div class="book-cover">
+          <img src="https://covers.openlibrary.org/b/isbn/9780306835339-M.jpg" alt="Nightfaring" onerror="this.style.display='none'">
+          <div class="cover-fallback"><div class="cover-fallback-icon">&#128218;</div><div class="cover-fallback-title">Nightfaring</div></div>
+          <div class="book-new-badge">2026</div>
+        </div>
+        <div class="book-info">
+          <div class="book-title">Nightfaring</div>
+          <div class="book-author">Megan Eaves-Egenes</div>
+          <div class="book-actions">
+            <a href="https://meganeaves.com/" class="book-btn-author" target="_blank" rel="noopener">Author &#8599;</a>
+            <a href="https://bookshop.org/p/books/nightfaring-in-search-of-the-disappearing-darkness-megan-eaves-egenes/5978221c68baf133" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="book-card" style="animation-delay:0.08s">
+        <div class="book-cover">
+          <img src="https://covers.openlibrary.org/b/isbn/9781637420669-M.jpg" alt="Astrotourism" onerror="this.style.display='none'">
+          <div class="cover-fallback"><div class="cover-fallback-icon">&#127756;</div><div class="cover-fallback-title">Astrotourism</div></div>
+        </div>
+        <div class="book-info">
+          <div class="book-title">Astrotourism</div>
+          <div class="book-author">Michael Marlin</div>
+          <div class="book-actions">
+            <a href="https://bookshop.org/p/books/astrotourism-star-gazers-eclipse-chasers-and-the-dark-sky-movement-michael-marlin/17612345" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="book-card" style="animation-delay:0.11s">
+        <div class="book-cover">
+          <img src="https://covers.openlibrary.org/b/isbn/9781788686198-M.jpg" alt="Dark Skies Lonely Planet" onerror="this.style.display='none'">
+          <div class="cover-fallback"><div class="cover-fallback-icon">&#127752;</div><div class="cover-fallback-title">Dark Skies: A Guide</div></div>
+        </div>
+        <div class="book-info">
+          <div class="book-title">Dark Skies: A Practical Guide</div>
+          <div class="book-author">Valerie Stimac</div>
+          <div class="book-actions">
+            <a href="https://bookshop.org/p/books/dark-skies-a-practical-guide-to-astrotourism-valerie-stimac/12844444" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PHOTOGRAPHY -->
+  <div class="shelf" id="photo">
+    <div class="shelf-head">
+      <div class="shelf-title"><span>&#128247;</span>Photography</div>
+      <div class="shelf-count">3 books</div>
+    </div>
+    <div class="book-grid">
+
+      <div class="book-card" style="animation-delay:0.05s">
+        <div class="book-cover">
+          <img src="https://covers.openlibrary.org/b/isbn/9780692625804-M.jpg" alt="SKYGLOW" onerror="this.style.display='none'">
+          <div class="cover-fallback"><div class="cover-fallback-icon">&#127756;</div><div class="cover-fallback-title">SKYGLOW</div></div>
+        </div>
+        <div class="book-info">
+          <div class="book-title">SKYGLOW</div>
+          <div class="book-author">Mehmedovic &amp; Heffernan</div>
+          <div class="book-actions">
+            <a href="https://skyglowproject.com/products" class="book-btn-author" target="_blank" rel="noopener">Author's store &#8599;</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="book-card" style="animation-delay:0.08s">
+        <div class="book-cover">
+          <div class="cover-fallback"><div class="cover-fallback-icon">&#127750;</div><div class="cover-fallback-title">Night on Earth</div></div>
+        </div>
+        <div class="book-info">
+          <div class="book-title">Night on Earth</div>
+          <div class="book-author">Art Wolfe</div>
+          <div class="book-actions">
+            <a href="https://bookshop.org/p/books/night-on-earth-art-wolfe/15926543" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="book-card" style="animation-delay:0.11s">
+        <div class="book-cover">
+          <img src="https://covers.openlibrary.org/b/isbn/9781647790127-M.jpg" alt="To Know a Starry Night" onerror="this.style.display='none'">
+          <div class="cover-fallback"><div class="cover-fallback-icon">&#127776;</div><div class="cover-fallback-title">To Know a Starry Night</div></div>
+        </div>
+        <div class="book-info">
+          <div class="book-title">To Know a Starry Night</div>
+          <div class="book-author">Paul Bogard &amp; Beau Rogers</div>
+          <div class="book-actions">
+            <a href="http://www.paul-bogard.com/books-and-writings" class="book-btn-author" target="_blank" rel="noopener">Author &#8599;</a>
+            <a href="https://bookshop.org/p/books/to-know-a-starry-night-paul-bogard/17264872" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- HISTORY & CULTURE -->
+  <div class="shelf" id="history">
+    <div class="shelf-head">
+      <div class="shelf-title"><span>&#127981;</span>History &amp; Culture</div>
+      <div class="shelf-count">3 books</div>
+    </div>
+    <div class="book-grid">
+
+      <div class="book-card" style="animation-delay:0.05s">
+        <div class="book-cover">
+          <img src="https://covers.openlibrary.org/b/isbn/9780593183014-M.jpg" alt="The Human Cosmos" onerror="this.style.display='none'">
+          <div class="cover-fallback"><div class="cover-fallback-icon">&#127776;</div><div class="cover-fallback-title">The Human Cosmos</div></div>
+        </div>
+        <div class="book-info">
+          <div class="book-title">The Human Cosmos</div>
+          <div class="book-author">Jo Marchant</div>
+          <div class="book-actions">
+            <a href="https://bookshop.org/p/books/the-human-cosmos-civilization-and-the-stars-jo-marchant/14700000" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="book-card" style="animation-delay:0.08s">
+        <div class="book-cover">
+          <img src="https://covers.openlibrary.org/b/isbn/9781760877200-M.jpg" alt="The First Astronomers" onerror="this.style.display='none'">
+          <div class="cover-fallback"><div class="cover-fallback-icon">&#11088;</div><div class="cover-fallback-title">The First Astronomers</div></div>
+        </div>
+        <div class="book-info">
+          <div class="book-title">The First Astronomers</div>
+          <div class="book-author">Duane Hamacher</div>
+          <div class="book-actions">
+            <a href="https://bookshop.org/p/books/the-first-astronomers-how-indigenous-elders-read-the-stars-duane-hamacher/17534567" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="book-card" style="animation-delay:0.11s">
+        <div class="book-cover">
+          <img src="https://covers.openlibrary.org/b/isbn/9781541674776-M.jpg" alt="Starborn" onerror="this.style.display='none'">
+          <div class="cover-fallback"><div class="cover-fallback-icon">&#127756;</div><div class="cover-fallback-title">Starborn</div></div>
+        </div>
+        <div class="book-info">
+          <div class="book-title">Starborn</div>
+          <div class="book-author">Roberto Trotta</div>
+          <div class="book-actions">
+            <a href="https://bookshop.org/p/books/starborn-how-the-stars-made-us-and-who-we-would-be-without-them-roberto-trotta/17123456" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FICTION -->
+  <div class="shelf" id="fiction">
+    <div class="shelf-head">
+      <div class="shelf-title"><span>&#128214;</span>Fiction</div>
+      <div class="shelf-count">1 book</div>
+    </div>
+    <div class="book-grid">
+
+      <div class="book-card" style="animation-delay:0.05s">
+        <div class="book-cover">
+          <img src="https://covers.openlibrary.org/b/isbn/9780062790989-M.jpg" alt="Under a Dark Sky" onerror="this.style.display='none'">
+          <div class="cover-fallback"><div class="cover-fallback-icon">&#128269;</div><div class="cover-fallback-title">Under a Dark Sky</div></div>
+        </div>
+        <div class="book-info">
+          <div class="book-title">Under a Dark Sky</div>
+          <div class="book-author">Lori Rader-Day</div>
+          <div class="book-actions">
+            <a href="https://bookshop.org/p/books/under-a-dark-sky-lori-rader-day/7082671" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- KIDS & TEENS -->
+  <div class="shelf" id="kids">
+    <div class="shelf-head">
+      <div class="shelf-title"><span>&#127775;</span>Kids &amp; Teens</div>
+      <div class="shelf-count">3 books</div>
+    </div>
+    <div class="book-grid">
+
+      <div class="book-card" style="animation-delay:0.05s">
+        <div class="book-cover">
+          <img src="https://covers.openlibrary.org/b/isbn/9781956378351-M.jpg" alt="Dark Skies" onerror="this.style.display='none'">
+          <div class="cover-fallback"><div class="cover-fallback-icon">&#127775;</div><div class="cover-fallback-title">Dark Skies</div></div>
+          <div class="book-age-badge">Ages 4–8</div>
+        </div>
+        <div class="book-info">
+          <div class="book-title">Dark Skies</div>
+          <div class="book-author">Lindsey Hobson</div>
+          <div class="book-actions">
+            <a href="https://bookshop.org/p/books/dark-skies-lindsey-hobson/18234567" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="book-card" style="animation-delay:0.08s">
+        <div class="book-cover">
+          <div class="cover-fallback"><div class="cover-fallback-icon">&#11088;</div><div class="cover-fallback-title">There Once Was a Sky Full of Stars</div></div>
+          <div class="book-age-badge">Ages 4–8</div>
+        </div>
+        <div class="book-info">
+          <div class="book-title">There Once Was a Sky Full of Stars</div>
+          <div class="book-author">Bob Crelin</div>
+          <div class="book-actions">
+            <a href="https://bookshop.org/p/books/there-once-was-a-sky-full-of-stars-bob-crelin/7123456" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="book-card" style="animation-delay:0.11s">
+        <div class="book-cover">
+          <div class="cover-fallback"><div class="cover-fallback-icon">&#127773;</div><div class="cover-fallback-title">Lights Out</div></div>
+          <div class="book-age-badge">Ages 6–8</div>
+        </div>
+        <div class="book-info">
+          <div class="book-title">Lights Out</div>
+          <div class="book-author">Marsha Diane Arnold</div>
+          <div class="book-actions">
+            <a href="https://bookshop.org/p/books/lights-out-marsha-diane-arnold/14234567" class="book-btn-find" target="_blank" rel="noopener">Find &#8599;</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <span class="footer-note">Curated by Starry Skies North. Purchase links go to Bookshop.org, which supports independent bookstores.</span>
+    <a href="https://www.starryskiesnorth.org" class="footer-link">starryskiesnorth.org &#8599;</a>
+  </div>
+</footer>
+
+<script>
+const sections = document.querySelectorAll('.shelf, #featured');
+const navLinks = document.querySelectorAll('.cat-nav-link');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector(`.cat-nav-link[href="#${entry.target.id}"]`);
+      if (active) {
+        active.classList.add('active');
+        active.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+      }
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
