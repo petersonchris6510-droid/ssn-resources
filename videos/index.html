@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video Library — Starry Skies North</title>
+<meta name="description" content="A growing library of light pollution resources curated by Starry Skies North -- videos, and coming soon: curriculum, print materials, advocacy tools, and more.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #07090f;
+    --surface: #0e1220;
+    --surface2: #141929;
+    --border: rgba(120,180,240,0.13);
+    --border-hover: rgba(120,180,240,0.36);
+    --accent: #7ec8f0;
+    --accent2: #f6ad55;
+    --text: #f0f4f8;
+    --body-text: #c8d8e8;
+    --muted: #7a90a8;
+    --muted2: #a0b4c8;
+    --tag-short: #1a3555;
+    --tag-short-text: #a8d4f8;
+    --tag-explainer: #163328;
+    --tag-explainer-text: #7ee8b8;
+    --tag-preso: #38280e;
+    --tag-preso-text: #fcd87a;
+    --tag-doc: #281838;
+    --tag-doc-text: #d0b8f8;
+    --tag-mn: #3a1c06;
+    --tag-mn-text: #fec090;
+    --tag-natl: #0c2240;
+    --tag-natl-text: #a8dcf8;
+    --featured-border: rgba(246,173,85,0.3);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Syne', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 16px;
+  }
+  body::before {
+    content: '';
+    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background-image:
+      radial-gradient(1px 1px at 8% 12%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 22% 44%, rgba(255,255,255,0.32) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 38% 7%, rgba(255,255,255,0.42) 0%, transparent 100%),
+      radial-gradient(1px 1px at 54% 61%, rgba(255,255,255,0.22) 0%, transparent 100%),
+      radial-gradient(1px 1px at 68% 23%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 79% 78%, rgba(255,255,255,0.32) 0%, transparent 100%),
+      radial-gradient(1px 1px at 91% 42%, rgba(255,255,255,0.42) 0%, transparent 100%),
+      radial-gradient(1px 1px at 14% 83%, rgba(255,255,255,0.26) 0%, transparent 100%),
+      radial-gradient(1px 1px at 59% 91%, rgba(255,255,255,0.36) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 33% 67%, rgba(255,255,255,0.42) 0%, transparent 100%),
+      radial-gradient(1px 1px at 84% 9%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 4% 52%, rgba(255,255,255,0.26) 0%, transparent 100%),
+      radial-gradient(1px 1px at 46% 31%, rgba(255,255,255,0.36) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 94% 86%, rgba(255,255,255,0.42) 0%, transparent 100%),
+      radial-gradient(1px 1px at 17% 19%, rgba(255,255,255,0.26) 0%, transparent 100%);
+  }
+
+  /* Site header */
+  .site-header {
+    position: relative; z-index: 10;
+    border-bottom: 1px solid var(--border);
+    background: rgba(7,9,15,0.9);
+    backdrop-filter: blur(10px);
+  }
+  .site-header-inner {
+    max-width: 1100px; margin: 0 auto; padding: 0 24px;
+    height: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .site-logo { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+  .logo-mark {
+    width: 32px; height: 32px; border: 1.5px solid var(--accent);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 15px; color: var(--accent); flex-shrink: 0;
+  }
+  .logo-text {
+    font-family: 'Space Mono', monospace; font-size: 12px; font-weight: 700;
+    letter-spacing: 0.1em; color: var(--text); text-transform: uppercase; line-height: 1.25;
+  }
+  .logo-text span { color: var(--accent); display: block; }
+  .back-link {
+    font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.08em;
+    color: var(--muted2); text-decoration: none; text-transform: uppercase;
+    transition: color 0.15s; white-space: nowrap;
+  }
+  .back-link:hover { color: var(--accent); }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+  /* Page header */
+  .page-header { padding: 44px 0 32px; border-bottom: 1px solid var(--border); }
+  .page-header-inner {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 20px; flex-wrap: wrap;
+  }
+  .eyebrow {
+    font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.18em;
+    color: var(--accent); text-transform: uppercase; margin-bottom: 10px;
+  }
+  h1 { font-size: clamp(28px, 4.5vw, 44px); font-weight: 800; line-height: 1.06; letter-spacing: -0.02em; }
+  h1 span { color: var(--accent); }
+  .header-right { text-align: right; max-width: 340px; }
+  .header-desc {
+    font-size: 14px; color: var(--body-text); line-height: 1.7; margin-bottom: 10px;
+  }
+  .header-count {
+    font-family: 'Space Mono', monospace; font-size: 12px; color: var(--muted2);
+  }
+  #result-count { color: var(--accent2); font-weight: 700; font-size: 14px; }
+
+  /* Coming soon strip */
+  .coming-soon {
+    margin: 20px 0 0;
+    padding: 12px 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  }
+  .coming-soon-label {
+    font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.14em;
+    color: var(--accent2); text-transform: uppercase; white-space: nowrap;
+  }
+  .coming-soon-items {
+    display: flex; gap: 8px; flex-wrap: wrap;
+  }
+  .coming-chip {
+    font-size: 12px; color: var(--muted2);
+    background: var(--surface2); border: 1px solid var(--border);
+    padding: 3px 10px; border-radius: 100px;
+  }
+
+  /* Search */
+  .search-wrap { margin: 28px 0 16px; position: relative; }
+  .search-icon {
+    position: absolute; left: 18px; top: 50%; transform: translateY(-50%);
+    color: var(--muted2); font-size: 16px; pointer-events: none;
+  }
+  #search {
+    width: 100%; padding: 16px 18px 16px 50px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; color: var(--text);
+    font-family: 'Syne', sans-serif; font-size: 16px;
+    outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  #search::placeholder { color: var(--muted); }
+  #search:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(126,200,240,0.12); }
+
+  /* Controls */
+  .controls {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 10px; margin-bottom: 10px;
+  }
+  .filters { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; }
+  .filter-label {
+    font-family: 'Space Mono', monospace; font-size: 11px;
+    letter-spacing: 0.1em; color: var(--muted2); text-transform: uppercase; margin-right: 2px;
+  }
+  .filter-btn {
+    padding: 7px 15px; border-radius: 100px;
+    border: 1px solid var(--border); background: transparent;
+    color: var(--muted2); font-family: 'Syne', sans-serif;
+    font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.15s;
+  }
+  .filter-btn:hover { border-color: var(--accent); color: var(--text); }
+  .filter-btn.active { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+  .filter-divider { width: 1px; height: 22px; background: var(--border); margin: 0 4px; }
+
+  .right-controls { display: flex; align-items: center; gap: 8px; }
+  .sort-select {
+    padding: 7px 12px; background: var(--surface);
+    border: 1px solid var(--border); border-radius: 6px;
+    color: var(--muted2); font-family: 'Syne', sans-serif;
+    font-size: 13px; cursor: pointer; outline: none; transition: border-color 0.15s;
+  }
+  .sort-select:focus { border-color: var(--accent); color: var(--text); }
+  .clear-btn {
+    padding: 7px 14px; background: transparent;
+    border: 1px solid rgba(246,173,85,0.3); border-radius: 100px;
+    color: var(--accent2); font-family: 'Syne', sans-serif;
+    font-size: 13px; font-weight: 600; cursor: pointer;
+    transition: all 0.15s; display: none;
+  }
+  .clear-btn.visible { display: inline-block; }
+  .clear-btn:hover { background: rgba(246,173,85,0.08); border-color: var(--accent2); }
+
+  .sep { height: 1px; background: var(--border); margin: 10px 0 18px; }
+
+  /* Featured section label */
+  .section-label {
+    font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.16em;
+    color: var(--accent2); text-transform: uppercase;
+    margin-bottom: 12px; display: none;
+  }
+  .section-label.visible { display: block; }
+
+  /* Grid */
+  #grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px; margin-bottom: 64px;
+    align-items: start;
+  }
+
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 22px;
+    display: flex; flex-direction: column; gap: 10px;
+    transition: border-color 0.2s, transform 0.18s, box-shadow 0.2s;
+    animation: fadeUp 0.28s ease forwards; opacity: 0;
+  }
+  .card.featured { border-color: var(--featured-border); }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(7px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.5);
+  }
+  .card.featured:hover { border-color: rgba(246,173,85,0.55); }
+
+  .card-badges { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+  .badge {
+    font-family: 'Space Mono', monospace; font-size: 11px;
+    letter-spacing: 0.05em; padding: 4px 10px;
+    border-radius: 4px; font-weight: 700; text-transform: uppercase;
+  }
+  .badge-short { background: var(--tag-short); color: var(--tag-short-text); }
+  .badge-explainer { background: var(--tag-explainer); color: var(--tag-explainer-text); }
+  .badge-preso { background: var(--tag-preso); color: var(--tag-preso-text); }
+  .badge-doc { background: var(--tag-doc); color: var(--tag-doc-text); }
+  .badge-mn { background: var(--tag-mn); color: var(--tag-mn-text); }
+  .badge-natl { background: var(--tag-natl); color: var(--tag-natl-text); }
+  .badge-featured {
+    background: transparent; border: 1px solid rgba(246,173,85,0.4);
+    color: var(--accent2); font-size: 10px; padding: 3px 8px;
+  }
+
+  .card-title a {
+    font-size: 16px; font-weight: 700; line-height: 1.35;
+    color: var(--text); text-decoration: none; transition: color 0.15s;
+  }
+  .card-title a:hover { color: var(--accent); }
+
+  .card-meta {
+    font-family: 'Space Mono', monospace; font-size: 12px;
+    color: var(--muted2); display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+  }
+  .card-meta .platform {
+    background: rgba(126,200,240,0.09); color: var(--accent);
+    padding: 3px 8px; border-radius: 3px; font-size: 11px;
+  }
+
+  .card-desc {
+    font-size: 14px; color: var(--body-text); line-height: 1.65;
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .card-desc.expanded { display: block; }
+  .expand-btn {
+    background: none; border: none; cursor: pointer;
+    font-family: 'Space Mono', monospace; font-size: 11px;
+    color: var(--accent); padding: 0; text-align: left; transition: opacity 0.15s;
+  }
+  .expand-btn:hover { opacity: 0.75; }
+
+  .card-footer {
+    display: flex; align-items: center; justify-content: flex-end;
+    gap: 8px; margin-top: 2px;
+  }
+  .share-btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px;
+    border: 1px solid var(--border); border-radius: 6px;
+    background: transparent; color: var(--muted2); cursor: pointer;
+    font-size: 15px; transition: all 0.15s; position: relative; flex-shrink: 0;
+  }
+  .share-btn:hover { border-color: var(--accent2); color: var(--accent2); }
+  .share-btn .tooltip {
+    position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
+    background: var(--surface2); border: 1px solid var(--border);
+    color: var(--text); font-family: 'Space Mono', monospace;
+    font-size: 10px; padding: 4px 8px; border-radius: 3px;
+    white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.15s;
+  }
+  .share-btn.copied .tooltip { opacity: 1; }
+  .card-link {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 8px 18px; border: 1px solid var(--accent); border-radius: 6px;
+    color: var(--accent); font-family: 'Syne', sans-serif;
+    font-size: 13px; font-weight: 700; text-decoration: none;
+    white-space: nowrap; transition: background 0.15s, color 0.15s;
+  }
+  .card-link:hover { background: var(--accent); color: var(--bg); }
+
+  #empty { display: none; text-align: center; padding: 80px 24px; color: var(--muted2); }
+  #empty .empty-icon { font-size: 36px; margin-bottom: 14px; }
+  #empty p { font-size: 15px; }
+
+  .site-footer {
+    position: relative; z-index: 1;
+    border-top: 1px solid var(--border); padding: 22px 0;
+  }
+  .site-footer-inner {
+    max-width: 1100px; margin: 0 auto; padding: 0 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 10px;
+  }
+  .footer-note { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--muted); }
+  .footer-link {
+    font-family: 'Space Mono', monospace; font-size: 11px;
+    color: var(--muted2); text-decoration: none; transition: color 0.15s;
+  }
+  .footer-link:hover { color: var(--accent); }
+
+  @media (max-width: 600px) {
+    .page-header-inner { flex-direction: column; align-items: flex-start; }
+    .header-right { text-align: left; max-width: 100%; }
+    .controls { flex-direction: column; align-items: flex-start; }
+    .right-controls { width: 100%; justify-content: flex-end; }
+    .coming-soon { flex-direction: column; align-items: flex-start; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="https://www.starryskiesnorth.org" class="site-logo">
+      <div class="logo-mark">✦</div>
+      <div class="logo-text">Starry Skies <span>North</span></div>
+    </a>
+    <a href="https://www.starryskiesnorth.org" class="back-link">&#8592; Main Site</a>
+  </div>
+</header>
+
+<div class="container">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div>
+        <div class="eyebrow">Resource Library</div>
+        <h1>Light Pollution<br><span>Video Library</span></h1>
+      </div>
+      <div class="header-right">
+        <p class="header-desc">A growing library of light pollution resources curated by Starry Skies North -- videos, and coming soon: curriculum, print materials, advocacy tools, and more. Everything you need to learn, teach, and take action on dark sky protection.</p>
+        <div class="header-count"><span id="result-count">0</span> videos</div>
+      </div>
+    </div>
+    <div class="coming-soon">
+      <span class="coming-soon-label">Coming soon</span>
+      <div class="coming-soon-items">
+        <span class="coming-chip">Curriculum</span>
+        <span class="coming-chip">Print Materials</span>
+        <span class="coming-chip">Advocacy Tools</span>
+        <span class="coming-chip">Books</span>
+        <span class="coming-chip">Kids Resources</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="search-wrap">
+    <span class="search-icon">&#9906;</span>
+    <input type="text" id="search" placeholder="Search by title, topic, keyword..." autocomplete="off">
+  </div>
+
+  <div class="controls">
+    <div class="filters">
+      <span class="filter-label">Format</span>
+      <button class="filter-btn active" data-filter="subtype" data-value="all">All</button>
+      <button class="filter-btn" data-filter="subtype" data-value="Short Clip">Short Clips</button>
+      <button class="filter-btn" data-filter="subtype" data-value="Explainer / Talk">Explainers</button>
+      <button class="filter-btn" data-filter="subtype" data-value="Presentation">Presentations</button>
+      <button class="filter-btn" data-filter="subtype" data-value="Documentary / Feature">Documentaries</button>
+      <div class="filter-divider"></div>
+      <span class="filter-label">Region</span>
+      <button class="filter-btn active" data-filter="region" data-value="all">All</button>
+      <button class="filter-btn" data-filter="region" data-value="Minnesota">Minnesota</button>
+      <button class="filter-btn" data-filter="region" data-value="National / International">National / Intl</button>
+    </div>
+    <div class="right-controls">
+      <select class="sort-select" id="sort">
+        <option value="default">Featured first</option>
+        <option value="shortest">Shortest first</option>
+        <option value="longest">Longest first</option>
+        <option value="az">A &rarr; Z</option>
+      </select>
+      <button class="clear-btn" id="clear-btn">&#10005; Clear</button>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+  <div class="section-label" id="section-label">&#9733; Recommended</div>
+  <div id="grid"></div>
+  <div id="empty">
+    <div class="empty-icon">✦</div>
+    <p>No videos match your search. Try different keywords or clear the filters.</p>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <span class="footer-note">Resources are community-curated. Some entries may be incomplete.</span>
+    <a href="https://www.starryskiesnorth.org" class="footer-link">starryskiesnorth.org &#8599;</a>
+  </div>
+</footer>
+
+<script>
+const resources = [
+  {
+    title: `Losing the Dark`,
+    url: `https://www.youtube.com/watch?v=dd82jaztFIo&t=8s`,
+    platform: `YouTube`,
+    length: `6 min`,
+    notes: `Produced for the IDA, provides a good intro to the harm from light pollution, and provides example solutions`,
+    region: `National / International`,
+    subtype: `Explainer / Talk`,
+    featured: true,
+  },
+  {
+    title: `Lost in Light`,
+    url: `https://www.youtube.com/watch?v=HHLnnXgDUgc`,
+    platform: `YouTube`,
+    length: `3 min`,
+    notes: `Series of short videos shot from areas with different level of light pollution (Bortle 8 - 1), with soft musical accompaniment`,
+    region: `National / International`,
+    subtype: `Short Clip`,
+    featured: true,
+  },
+  {
+    title: `The Strange Scourge of Light Pollution`,
+    url: `https://youtu.be/_nlFcEj41Xk`,
+    platform: `YouTube`,
+    length: `10 min`,
+    notes: `Short Episode of "The Sci Show" covering an introduction to light pollution, its impacts, and some solutions`,
+    region: `National / International`,
+    subtype: `Explainer / Talk`,
+    featured: true,
+  },
+  {
+    title: `Northern Nights, Starry Skies`,
+    url: `https://www.youtube.com/watch?v=ZcbCxSUIs1Q`,
+    platform: `YouTube`,
+    length: `56 min`,
+    notes: `Documentary filmed in Duluth and featuring many regional Dark-Sky voices`,
+    region: `Minnesota`,
+    subtype: `Documentary / Feature`,
+    featured: true,
+  },
+  {
+    title: `De-Light the Night TED Talk`,
+    url: `https://www.youtube.com/watch?v=-xSv33prmGY`,
+    platform: `YouTube`,
+    length: `19 min`,
+    notes: `Nice 20-minute introduction to light pollution by the person who spearheaded Pittsburgh's light pollution policy`,
+    region: `National / International`,
+    subtype: `Explainer / Talk`,
+    featured: true,
+  },
+  {
+    title: `Lights Out for Birds`,
+    url: `https://www.youtube.com/watch?v=vQ_OuaU2kh0`,
+    platform: `YouTube`,
+    length: `3 min`,
+    notes: `Animated short about the danger of urban core lighting for migrating birds`,
+    region: `National / International`,
+    subtype: `Explainer / Talk`,
+    featured: true,
+  },
+  {
+    title: `Celebrating the Dark Skies over the Boundary Waters`,
+    url: `https://www.youtube.com/watch?v=NO-SSn-bRzg`,
+    platform: `YouTube`,
+    length: `1.3 min`,
+    notes: `Short promo for International Dark Sky Week from Mark Morgen, from Grand Marais office of Starry Skies north`,
+    region: `Minnesota`,
+    subtype: `Short Clip`,
+    featured: true,
+  },
+  {
+    title: `Maglite demo`,
+    url: `https://www.youtube.com/watch?v=nb7eryzSBno`,
+    platform: `YouTube`,
+    length: `18s`,
+    notes: `From Globe at Night educational materials`,
+    region: `National / International`,
+    subtype: `Short Clip`,
+    featured: false,
+  },
+  {
+    title: `Bees get all the credit`,
+    url: `https://www.youtube.com/watch?v=lmt32irIUlA`,
+    platform: `YouTube`,
+    length: `30s`,
+    notes: `From DarkSky Oregon -cute animated video about moths and lights`,
+    region: `National / International`,
+    subtype: `Short Clip`,
+    featured: false,
+  },
+  {
+    title: `Light Trespass`,
+    url: `https://www.youtube.com/watch?v=LDMsZjCCfFw`,
+    platform: `YouTube`,
+    length: `30s`,
+    notes: `From DarkSky Oregon -cute animated video about light trespass`,
+    region: `National / International`,
+    subtype: `Short Clip`,
+    featured: false,
+  },
+  {
+    title: `Migration Ready`,
+    url: `https://www.youtube.com/watch?v=BIKZfeBv1Vk`,
+    platform: `YouTube`,
+    length: `30s`,
+    notes: `From DarkSky Oregon -cute animated video about lights out during migration`,
+    region: `National / International`,
+    subtype: `Short Clip`,
+    featured: false,
+  },
+  {
+    title: `Blue Light`,
+    url: `https://youtu.be/ekZhQHqc57E`,
+    platform: `YouTube`,
+    length: `30s`,
+    notes: `From DarkSky Oregon -cute animated video about blue light`,
+    region: `National / International`,
+    subtype: `Short Clip`,
+    featured: false,
+  },
+  {
+    title: `Light Wisely`,
+    url: `https://www.youtube.com/watch?v=pgTv35TnLzU`,
+    platform: `YouTube`,
+    length: `30s`,
+    notes: `From DarkSky Oregon -cute animated video about lighting wisely`,
+    region: `National / International`,
+    subtype: `Short Clip`,
+    featured: false,
+  },
+  {
+    title: `Blinded by the Glare`,
+    url: `https://youtu.be/YFTDmTTRIM8`,
+    platform: `YouTube`,
+    length: `30s`,
+    notes: `From DarkSky Oregon -cute animated video about glare's impact on safety`,
+    region: `National / International`,
+    subtype: `Short Clip`,
+    featured: false,
+  },
+  {
+    title: `What You Can Do Presents – “Help Protect Wildlife”`,
+    url: `https://youtu.be/ooLYWwA43SE`,
+    platform: `YouTube`,
+    length: `1 min`,
+    notes: `In 1 minute, provides examples of what you can do to protect wildlife.`,
+    region: `National / International`,
+    subtype: `Short Clip`,
+    featured: false,
+  },
+  {
+    title: `Lili Taylor -lights out for birds`,
+    url: `https://youtu.be/bgl3tcB-Biw`,
+    platform: `YouTube`,
+    length: `1.5 min`,
+    notes: `Brief statement of issue and appeal for lights out`,
+    region: `National / International`,
+    subtype: `Short Clip`,
+    featured: false,
+  },
+  {
+    title: `The Ambush`,
+    url: `https://youtu.be/1BKsa_4EumA`,
+    platform: `YouTube`,
+    length: `2 min`,
+    notes: `Amateur video by "The Dark Ranger" talking about bad lighting design.  Contains mild startle near start of video`,
+    region: `National / International`,
+    subtype: `Short Clip`,
+    featured: false,
+  },
+  {
+    title: `Light Pollution Facts, Figures, & Effects`,
+    url: `https://youtu.be/8gE6wLi5y_w`,
+    platform: `YouTube`,
+    length: `3 min`,
+    notes: `From IDA`,
+    region: `National / International`,
+    subtype: `Short Clip`,
+    featured: false,
+  },
+  {
+    title: `Light Pollution: The Solution is Easy`,
+    url: `https://youtu.be/vk_yirISflc`,
+    platform: `YouTube`,
+    length: `4 min`,
+    notes: `Nice summary from Teddy Roosevelt National Park plus a plug abuot IDA`,
+    region: `National / International`,
+    subtype: `Explainer / Talk`,
+    featured: false,
+  },
+  {
+    title: `Omnipresence Film`,
+    url: `https://www.newyorker.com/video/watch/omnipresence-film`,
+    platform: `New Yorker`,
+    length: `6 min`,
+    notes: `By The New Yorker -24/7 Surveillance Lightings: who is wataching -and why?`,
+    region: `National / International`,
+    subtype: `Explainer / Talk`,
+    featured: false,
+  },
+  {
+    title: `Whitening the Sky: light pollution as a form of cultural genocide`,
+    url: `https://vimeo.com/1046985011?share=copy`,
+    platform: `Vimeo`,
+    length: `7 min`,
+    notes: `Brief introduction to the "slow violence" of cultural loss.`,
+    region: `National / International`,
+    subtype: `Explainer / Talk`,
+    featured: false,
+  },
+  {
+    title: `Protecting Dark Skies`,
+    url: `https://www.youtube.com/watch?v=WLYH7YwpLzQ`,
+    platform: `YouTube`,
+    length: `8 min`,
+    notes: `On CBS's On the Dot, with David Schecter`,
+    region: `National / International`,
+    subtype: `Explainer / Talk`,
+    featured: false,
+  },
+  {
+    title: `Glowing, Glowing Gone: What we Lose  When we Trun On the Lights`,
+    url: `https://www.youtube.com/watch?v=wsg18PX0V_w`,
+    platform: `YouTube`,
+    length: `12 min`,
+    notes: `TedX talk about fireflies and light pollution, along with simple solutions`,
+    region: `National / International`,
+    subtype: `Explainer / Talk`,
+    featured: false,
+  },
+  {
+    title: `Why No One Can See the Stars Anymore`,
+    url: `https://www.youtube.com/watch?v=XJXsIeqOKT0`,
+    platform: `YouTube`,
+    length: `12 min`,
+    notes: `PBS`,
+    region: `National / International`,
+    subtype: `Explainer / Talk`,
+    featured: false,
+  },
+  {
+    title: `Urban Light: Preserving Dark Skies in LA County`,
+    url: `https://www.youtube.com/watch?v=idStuAKJPZs`,
+    platform: `YouTube`,
+    length: `12 min`,
+    notes: `Bringing Dark Skies to LA County`,
+    region: `National / International`,
+    subtype: `Explainer / Talk`,
+    featured: false,
+  },
+  {
+    title: `Bird-friendly communities & safe passage`,
+    url: `https://www.youtube.com/watch?v=kdMnztQSDvg`,
+    platform: `YouTube`,
+    length: `12 min`,
+    notes: `Source of good stats and images about impact of lights on birds`,
+    region: `National / International`,
+    subtype: `Explainer / Talk`,
+    featured: false,
+  },
+  {
+    title: `The Movement to Save our Night Skies`,
+    url: `https://youtu.be/QyqykIFqNoY`,
+    platform: `YouTube`,
+    length: `13 min`,
+    notes: `From PBS`,
+    region: `National / International`,
+    subtype: `Explainer / Talk`,
+    featured: false,
+  },
+  {
+    title: `Dark Sacred Night`,
+    url: `https://www.youtube.com/watch?v=FW0WZX75Nmo`,
+    platform: `YouTube`,
+    length: `15 min`,
+    notes: `A Story telling project of Princeton University -Light pollution and why it matters`,
+    region: `National / International`,
+    subtype: `Explainer / Talk`,
+    featured: false,
+  },
+  {
+    title: `Why We Need Dark Skies (National Park Diaries)`,
+    url: `https://www.youtube.com/watch?v=kQDLhHLByf8`,
+    platform: `YouTube`,
+    length: `15 min`,
+    notes: `Nice Intro to IDSPs and why they matter, from youtube content provider`,
+    region: `National / International`,
+    subtype: `Explainer / Talk`,
+    featured: false,
+  },
+  {
+    title: `Boreal Stargazing Week Pre-Recorded Video 2025`,
+    url: `https://vimeo.com/1053092832?share=copy`,
+    platform: `YouTube`,
+    length: `18 min`,
+    notes: `Voyageurs Conservancy and Friends of the Boundary Waters kickoff Boreal Stargazing week with an opportunity for students to learn more about each of these protected lands that make up the International Dark Sky zone in Northern Minnesota. Prepare for the week of presentations by exploring what you already know about dark skies, why they are important, and how we can protect them.`,
+    region: `Minnesota`,
+    subtype: `Explainer / Talk`,
+    featured: false,
+  },
+  {
+    title: `Why We Need Darkness`,
+    url: `https://www.youtube.com/watch?v=F55wBS2kNNQ`,
+    platform: `YouTube`,
+    length: `20 min`,
+    notes: `20 Minute talk by 'our' Paul Bogard about why the night sky matters`,
+    region: `National / International`,
+    subtype: `Explainer / Talk`,
+    featured: false,
+  },
+  {
+    title: `City Lights, Starry Nights, the film`,
+    url: `https://www.youtube.com/watch?v=e1baqCVYJdg`,
+    platform: `YouTube`,
+    length: `24 min`,
+    notes: `Produced in, and featuring Duluth`,
+    region: `Minnesota`,
+    subtype: `Presentation`,
+    featured: false,
+  },
+  {
+    title: `Todd preso at Plymouth Congregational Church Forum`,
+    url: `https://www.youtube.com/watch?v=zuPBl51yyKM&list=PLPQ_E2BWxdh2heHPhWxl9kJZzFczM2cCE&index=1`,
+    platform: `YouTube`,
+    length: `40 min`,
+    notes: `Presentation introducing light pollution, the harm it causes, and simple solutions`,
+    region: `Minnesota`,
+    subtype: `Presentation`,
+    featured: false,
+  },
+  {
+    title: `The Dark Side of Light`,
+    url: `https://www.youtube.com/watch?v=bXR3Lu_SD7c`,
+    platform: `YouTube`,
+    length: `42 min`,
+    notes: `German Documentary from DW -good candidate for showing at an event`,
+    region: `National / International`,
+    subtype: `Presentation`,
+    featured: false,
+  },
+  {
+    title: `Everyone Cares About Light Pollution -they just don't know it yet`,
+    url: `https://youtu.be/bGaRtozU4Zo`,
+    platform: `YouTube`,
+    length: `54 min`,
+    notes: `Recording of Todd's March 11, 2026 presentation to Tamarack Water Alliance`,
+    region: `Minnesota`,
+    subtype: `Documentary / Feature`,
+    featured: false,
+  },
+  {
+    title: `Saving the Dark`,
+    url: `https://www.youtube.com/watch?v=6fHxNn-FEnc`,
+    platform: `YouTube`,
+    length: `56 min`,
+    notes: `Documentary`,
+    region: `National / International`,
+    subtype: `Documentary / Feature`,
+    featured: false,
+  },
+  {
+    title: `Crossing America: Voyageurs National Park with Expeditions in Education`,
+    url: `https://youtu.be/fR8Ok6TOa_g?feature=shared`,
+    platform: `YouTube`,
+    length: `57 min`,
+    notes: `Join us for an exciting journey into the snowy, star-filled nights of Voyageurs National Park, where we’ll uncover the secrets of nocturnal animal behavior and the importance of dark skies. From tracking wildlife in the snow to exploring the unique challenges of winter nights in northern Minnesota, this livestream offers a glimpse into the wonders of life after dark.`,
+    region: `Minnesota`,
+    subtype: `Documentary / Feature`,
+    featured: false,
+  },
+  {
+    title: `Winter Night Skies & The Aurora Borealis with Voyageurs Conservancy`,
+    url: `https://www.youtube.com/watch?v=U7UTriOPtr8`,
+    platform: `YouTube`,
+    length: `60 min`,
+    notes: `While winter months may bring freezing temperatures, there are advantages to experiencing the night sky during this time of year! Join Voyageurs Conservancy's dark sky enthusiast, Jesse Gates, as we explore the wonders of the winter night sky and learn about why the rare and beautiful phenomenon of the aurora borealis may be best viewed in the year 2025.  The ASL version of this program can be viewed`,
+    region: `Minnesota`,
+    subtype: `Documentary / Feature`,
+    featured: false,
+  },
+  {
+    title: `Owl Detectives with the International Owl Center`,
+    url: `https://www.youtube.com/watch?v=qrdk9a2VDIU`,
+    platform: `YouTube`,
+    length: `62 min`,
+    notes: `Join the International Owl Center to find out whooo’s in your backyard! Learn more about the traits of these nocturnal animals and why dark skies are important to them. Discover how to identify the more common owls of the Eastern U.S. by size, shape, sound, and silhouette, with an emphasis on the sounds they make.  The ASL version of this program can be viewed here`,
+    region: `National / International`,
+    subtype: `Documentary / Feature`,
+    featured: false,
+  },
+  {
+    title: `Megan Eaves preso to Mayo park's Women in Darkness series`,
+    url: `https://www.youtube.com/watch?v=S-FQx5tFGFo`,
+    platform: `YouTube`,
+    length: `62 min`,
+    notes: `Megan Eaves is a travel writer, journalist, and editor of Nightscape.  This is an AstroTourism preso she did in Ireland`,
+    region: `Minnesota`,
+    subtype: `Documentary / Feature`,
+    featured: false,
+  }
+];
+
+const subtypeBadge = {
+  'Short Clip': 'badge-short',
+  'Explainer / Talk': 'badge-explainer',
+  'Presentation': 'badge-preso',
+  'Documentary / Feature': 'badge-doc',
+};
+const regionBadge = {
+  'Minnesota': 'badge-mn',
+  'National / International': 'badge-natl',
+};
+
+let activeSubtype = 'all', activeRegion = 'all', searchQuery = '', sortOrder = 'default';
+
+function isDirty() {
+  return activeSubtype !== 'all' || activeRegion !== 'all' || searchQuery !== '';
+}
+
+function parseMinutes(str) {
+  if (!str) return 0;
+  if (str.endsWith('s')) return parseFloat(str) / 60;
+  return parseFloat(str) || 0;
+}
+
+function render() {
+  const q = searchQuery.toLowerCase();
+  document.getElementById('clear-btn').classList.toggle('visible', isDirty());
+
+  let filtered = resources.filter(r =>
+    (activeSubtype === 'all' || r.subtype === activeSubtype) &&
+    (activeRegion === 'all' || r.region === activeRegion) &&
+    (!q || r.title.toLowerCase().includes(q) || r.notes.toLowerCase().includes(q) ||
+     r.subtype.toLowerCase().includes(q) || r.platform.toLowerCase().includes(q))
+  );
+
+  // Sort
+  if (sortOrder === 'default') {
+    // Featured first (preserve order), then rest by duration
+    const feat = filtered.filter(r => r.featured);
+    const rest = filtered.filter(r => !r.featured).sort((a,b) => parseMinutes(a.length) - parseMinutes(b.length));
+    filtered = [...feat, ...rest];
+  } else if (sortOrder === 'shortest') {
+    filtered.sort((a,b) => parseMinutes(a.length) - parseMinutes(b.length));
+  } else if (sortOrder === 'longest') {
+    filtered.sort((a,b) => parseMinutes(b.length) - parseMinutes(a.length));
+  } else if (sortOrder === 'az') {
+    filtered.sort((a,b) => a.title.localeCompare(b.title));
+  }
+
+  document.getElementById('result-count').textContent = filtered.length;
+
+  // Show section label only on default sort with no filters active
+  const showLabel = sortOrder === 'default' && !isDirty();
+  document.getElementById('section-label').classList.toggle('visible', showLabel);
+
+  const grid = document.getElementById('grid');
+  const empty = document.getElementById('empty');
+
+  if (filtered.length === 0) { grid.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+
+  const needsClamp = (notes) => notes && notes.split(' ').length > 30;
+
+  grid.innerHTML = filtered.map((r, i) => `
+    <div class="card${r.featured && sortOrder === 'default' && !isDirty() ? ' featured' : ''}" style="animation-delay:${Math.min(i * 0.03, 0.4)}s">
+      <div class="card-badges">
+        <span class="badge ${subtypeBadge[r.subtype] || ''}">${r.subtype}</span>
+        <span class="badge ${regionBadge[r.region] || ''}">${r.region}</span>
+        ${r.featured && sortOrder === 'default' && !isDirty() ? '<span class="badge badge-featured">★ Recommended</span>' : ''}
+      </div>
+      <div class="card-title">
+        <a href="${r.url}" target="_blank" rel="noopener">${r.title}</a>
+      </div>
+      <div class="card-meta">
+        <span class="platform">${r.platform}</span>
+        ${r.length ? `<span class="duration">${r.length}</span>` : ''}
+      </div>
+      ${r.notes ? `
+        <div class="card-desc${needsClamp(r.notes) ? '' : ' expanded'}">${r.notes}</div>
+        ${needsClamp(r.notes) ? '<button class="expand-btn" onclick="toggleDesc(this)">Show more &#8595;</button>' : ''}
+      ` : ''}
+      <div class="card-footer">
+        <button class="share-btn" data-title="${r.title.replace(/"/g, '&quot;')}" data-url="${r.url}">
+          &#10697;<span class="tooltip">Copied!</span>
+        </button>
+        <a href="${r.url}" class="card-link" target="_blank" rel="noopener">Watch &#8599;</a>
+      </div>
+    </div>
+  `).join('');
+
+  grid.querySelectorAll('.share-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const text = btn.dataset.title + ' — ' + btn.dataset.url;
+      navigator.clipboard.writeText(text).then(() => {
+        btn.classList.add('copied');
+        setTimeout(() => btn.classList.remove('copied'), 1800);
+      });
+    });
+  });
+}
+
+function toggleDesc(btn) {
+  const desc = btn.previousElementSibling;
+  const expanded = desc.classList.toggle('expanded');
+  btn.textContent = expanded ? 'Show less ↑' : 'Show more ↓';
+}
+
+document.getElementById('search').addEventListener('input', e => { searchQuery = e.target.value; render(); });
+document.getElementById('sort').addEventListener('change', e => { sortOrder = e.target.value; render(); });
+document.getElementById('clear-btn').addEventListener('click', () => {
+  activeSubtype = 'all'; activeRegion = 'all'; searchQuery = ''; sortOrder = 'default';
+  document.getElementById('search').value = '';
+  document.getElementById('sort').value = 'default';
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.value === 'all'));
+  render();
+});
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const { filter, value } = btn.dataset;
+    if (filter === 'subtype') activeSubtype = value;
+    if (filter === 'region') activeRegion = value;
+    document.querySelectorAll(`.filter-btn[data-filter="${filter}"]`).forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    render();
+  });
+});
+
+render();
+</script>
+</body>
+</html>
